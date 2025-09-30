@@ -9,54 +9,54 @@
 
 :root {
   /* 🎯 BLUR & DISTORTION SETTINGS */
-  --glass-blur-base: 20px;
-  --glass-blur-hover: 24px;
-  --glass-saturation: 200%;
-  --glass-contrast: 110%;
-  --glass-brightness: 115%;
+  --glass-blur-base: 14px;
+  --glass-blur-hover: 16px;
+  --glass-saturation: 160%;
+  --glass-contrast: 105%;
+  --glass-brightness: 108%;
 
   /* SVG Distortion Parameters */
-  --distortion-frequency-x: 0.025;
-  --distortion-frequency-y: 0.035;
+  --distortion-frequency-x: 0.02;
+  --distortion-frequency-y: 0.03;
   --distortion-octaves: 3;
-  --distortion-scale: 35;
+  --distortion-scale: 20;
   --distortion-seed: 7;
 
   /* 🎯 GLASS BODY SETTINGS */
-  --glass-bg-opacity-start: 0.28 !important;
-  --glass-bg-opacity-mid: 0.12 !important;
-  --glass-bg-opacity-end: 0.18 !important;
-  --glass-border-opacity: 0.5 !important;
+  --glass-bg-opacity-start: 0.22 !important;
+  --glass-bg-opacity-mid: 0.1 !important;
+  --glass-bg-opacity-end: 0.16 !important;
+  --glass-border-opacity: 0.45 !important;
 
   /* 3D Shadow Depth */
-  --glass-shadow-main: 0 20px 60px rgba(0, 0, 0, 0.35);
-  --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.15);
-  --glass-shadow-hover-main: 0 25px 70px rgba(0, 0, 0, 0.4);
-  --glass-shadow-hover-secondary: 0 6px 20px rgba(0, 0, 0, 0.2);
+  --glass-shadow-main: 0 12px 40px rgba(0, 0, 0, 0.25);
+  --glass-shadow-secondary: 0 3px 12px rgba(0, 0, 0, 0.12);
+  --glass-shadow-hover-main: 0 16px 50px rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover-secondary: 0 5px 16px rgba(0, 0, 0, 0.18);
 
   /* Inset Shadows for Depth */
-  --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.8);
-  --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.08);
 
   /* 🎯 HIGHLIGHT SETTINGS (::before layer) */
-  --highlight-top-intensity: 0.9;
-  --highlight-top-falloff: 0.3;
-  --highlight-bottom-intensity: 0.15;
-  --highlight-ellipse-width: 180%;
-  --highlight-ellipse-height: 120%;
-  --highlight-position-y: -25%;
+  --highlight-top-intensity: 0.7;
+  --highlight-top-falloff: 0.25;
+  --highlight-bottom-intensity: 0.12;
+  --highlight-ellipse-width: 170%;
+  --highlight-ellipse-height: 115%;
+  --highlight-position-y: -22%;
 
   /* Inner Glow */
-  --inner-glow-spread: -8px;
-  --inner-glow-intensity: 0.6;
+  --inner-glow-spread: -6px;
+  --inner-glow-intensity: 0.45;
   --inner-shadow-offset: -3px;
   --inner-shadow-blur: 6px;
 
   /* 🎯 HOVER INTENSIFICATION */
-  --hover-lift: -2px;
-  --hover-highlight-boost: 0.85;
-  --hover-blur-boost: 2px;
-  --hover-saturation-boost: 10%;
+  --hover-lift: -1.5px;
+  --hover-highlight-boost: 0.7;
+  --hover-blur-boost: 1px;
+  --hover-saturation-boost: 6%;
 
   /* 🎯 ANIMATION SETTINGS */
   --glass-transition-speed: 0.3s;
@@ -65,44 +65,44 @@
 
 /* 🌙 DARK MODE OVERRIDES */
 [data-theme="dark"] {
-  --glass-bg-opacity-start: 0.12 !important;
-  --glass-bg-opacity-mid: 0.06 !important;
-  --glass-bg-opacity-end: 0.08 !important;
-  --glass-border-opacity: 0.3 !important;
+  --glass-bg-opacity-start: 0.1 !important;
+  --glass-bg-opacity-mid: 0.05 !important;
+  --glass-bg-opacity-end: 0.07 !important;
+  --glass-border-opacity: 0.28 !important;
 
-  --glass-shadow-main: 0 12px 40px rgba(0, 0, 0, 0.4);
-  --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.25);
-  --glass-shadow-hover-main: 0 16px 50px rgba(0, 0, 0, 0.5);
-  --glass-shadow-hover-secondary: 0 6px 20px rgba(0, 0, 0, 0.3);
+  --glass-shadow-main: 0 10px 32px rgba(0, 0, 0, 0.35);
+  --glass-shadow-secondary: 0 3px 12px rgba(0, 0, 0, 0.2);
+  --glass-shadow-hover-main: 0 14px 44px rgba(0, 0, 0, 0.4);
+  --glass-shadow-hover-secondary: 0 5px 16px rgba(0, 0, 0, 0.24);
 
-  --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.4);
-  --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+  --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.35);
+  --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.18);
 
-  --highlight-top-intensity: 0.35;
-  --highlight-top-falloff: 0.15;
-  --highlight-bottom-intensity: 0.08;
-  --inner-glow-intensity: 0.3;
+  --highlight-top-intensity: 0.32;
+  --highlight-top-falloff: 0.14;
+  --highlight-bottom-intensity: 0.07;
+  --inner-glow-intensity: 0.28;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --glass-bg-opacity-start: 0.12 !important;
-    --glass-bg-opacity-mid: 0.06 !important;
-    --glass-bg-opacity-end: 0.08 !important;
-    --glass-border-opacity: 0.3 !important;
+    --glass-bg-opacity-start: 0.1 !important;
+    --glass-bg-opacity-mid: 0.05 !important;
+    --glass-bg-opacity-end: 0.07 !important;
+    --glass-border-opacity: 0.28 !important;
 
-    --glass-shadow-main: 0 12px 40px rgba(0, 0, 0, 0.4);
-    --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.25);
-    --glass-shadow-hover-main: 0 16px 50px rgba(0, 0, 0, 0.5);
-    --glass-shadow-hover-secondary: 0 6px 20px rgba(0, 0, 0, 0.3);
+    --glass-shadow-main: 0 10px 32px rgba(0, 0, 0, 0.35);
+    --glass-shadow-secondary: 0 3px 12px rgba(0, 0, 0, 0.2);
+    --glass-shadow-hover-main: 0 14px 44px rgba(0, 0, 0, 0.4);
+    --glass-shadow-hover-secondary: 0 5px 16px rgba(0, 0, 0, 0.24);
 
-    --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.4);
-    --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+    --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.35);
+    --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.18);
 
-    --highlight-top-intensity: 0.35;
-    --highlight-top-falloff: 0.15;
-    --highlight-bottom-intensity: 0.08;
-    --inner-glow-intensity: 0.3;
+    --highlight-top-intensity: 0.32;
+    --highlight-top-falloff: 0.14;
+    --highlight-bottom-intensity: 0.07;
+    --inner-glow-intensity: 0.28;
   }
 }
 
