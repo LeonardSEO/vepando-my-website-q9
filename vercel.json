@@ -7,7 +7,7 @@
       "memory": 2048,
       "maxDuration": 10
     }
-  ],
+  },
   "redirects": [
     { "source": "/kennisbank", "destination": "/", "permanent": true },
     { "source": "/kennisbank/2", "destination": "/", "permanent": true },
