@@ -1,18 +1,25 @@
 /* 🎯 DEFINITIEVE LIQUID GLASS CONFIGURATIE - Het Controlepaneel */
+/*
+  BELANGRIJK: Gebruik geen !important in de variabele waardes zelf.
+  De waarden worden direct in functies zoals rgba() en backdrop-filter
+  geïnjecteerd, en een !important binnen de var() maakt de volledige
+  declaratie ongeldig. Verhoog indien nodig de specificiteit van de
+  selector in plaats van !important op te nemen in de waarde.
+*/
 
 :root {
   /* 🎯 BLUR & DISTORTION SETTINGS */
-  --glass-blur-base: 20px !important;
-  --glass-blur-hover: 24px !important;
-  --glass-saturation: 200% !important;
+  --glass-blur-base: 20px;
+  --glass-blur-hover: 24px;
+  --glass-saturation: 200%;
   --glass-contrast: 110%;
-  --glass-brightness: 115% !important;
+  --glass-brightness: 115%;
 
   /* SVG Distortion Parameters */
-  --distortion-frequency-x: 0.025 !important;
-  --distortion-frequency-y: 0.035 !important;
+  --distortion-frequency-x: 0.025;
+  --distortion-frequency-y: 0.035;
   --distortion-octaves: 3;
-  --distortion-scale: 35 !important;
+  --distortion-scale: 35;
   --distortion-seed: 7;
 
   /* 🎯 GLASS BODY SETTINGS */
@@ -22,9 +29,9 @@
   --glass-border-opacity: 0.5 !important;
 
   /* 3D Shadow Depth */
-  --glass-shadow-main: 0 20px 60px rgba(0, 0, 0, 0.35) !important;
+  --glass-shadow-main: 0 20px 60px rgba(0, 0, 0, 0.35);
   --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.15);
-  --glass-shadow-hover-main: 0 25px 70px rgba(0, 0, 0, 0.4) !important;
+  --glass-shadow-hover-main: 0 25px 70px rgba(0, 0, 0, 0.4);
   --glass-shadow-hover-secondary: 0 6px 20px rgba(0, 0, 0, 0.2);
 
   /* Inset Shadows for Depth */
@@ -32,7 +39,7 @@
   --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
 
   /* 🎯 HIGHLIGHT SETTINGS (::before layer) */
-  --highlight-top-intensity: 0.9 !important;
+  --highlight-top-intensity: 0.9;
   --highlight-top-falloff: 0.3;
   --highlight-bottom-intensity: 0.15;
   --highlight-ellipse-width: 180%;
