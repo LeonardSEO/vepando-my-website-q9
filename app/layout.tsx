@@ -48,8 +48,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* 🎮 PLAYGROUND SCRIPT - Nu direct in head voor snellere loading */}
-        <script src="/js/glass-playground.js" defer></script>
       </head>
       <body
         className={`${inter.className} bg-[radial-gradient(1200px_800px_at_50%_-200px,rgba(79,70,229,0.12),transparent)]`}
