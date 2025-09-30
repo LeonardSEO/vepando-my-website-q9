@@ -1,0 +1,180 @@
+/* 🎯 DEFINITIEVE LIQUID GLASS CONFIGURATIE - Het Controlepaneel */
+
+:root {
+  /* 🎯 BLUR & DISTORTION SETTINGS */
+  --glass-blur-base: 20px !important;
+  --glass-blur-hover: 24px !important;
+  --glass-saturation: 200% !important;
+  --glass-contrast: 110%;
+  --glass-brightness: 115% !important;
+
+  /* SVG Distortion Parameters */
+  --distortion-frequency-x: 0.025 !important;
+  --distortion-frequency-y: 0.035 !important;
+  --distortion-octaves: 3;
+  --distortion-scale: 35 !important;
+  --distortion-seed: 7;
+
+  /* 🎯 GLASS BODY SETTINGS */
+  --glass-bg-opacity-start: 0.28;
+  --glass-bg-opacity-mid: 0.12;
+  --glass-bg-opacity-end: 0.18;
+  --glass-border-opacity: 0.5;
+
+  /* 3D Shadow Depth */
+  --glass-shadow-main: 0 20px 60px rgba(0, 0, 0, 0.35) !important;
+  --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --glass-shadow-hover-main: 0 25px 70px rgba(0, 0, 0, 0.4) !important;
+  --glass-shadow-hover-secondary: 0 6px 20px rgba(0, 0, 0, 0.2);
+
+  /* Inset Shadows for Depth */
+  --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+
+  /* 🎯 HIGHLIGHT SETTINGS (::before layer) */
+  --highlight-top-intensity: 0.9 !important;
+  --highlight-top-falloff: 0.3;
+  --highlight-bottom-intensity: 0.15;
+  --highlight-ellipse-width: 180%;
+  --highlight-ellipse-height: 120%;
+  --highlight-position-y: -25%;
+
+  /* Inner Glow */
+  --inner-glow-spread: -8px;
+  --inner-glow-intensity: 0.6;
+  --inner-shadow-offset: -3px;
+  --inner-shadow-blur: 6px;
+
+  /* 🎯 HOVER INTENSIFICATION */
+  --hover-lift: -2px;
+  --hover-highlight-boost: 0.85;
+  --hover-blur-boost: 2px;
+  --hover-saturation-boost: 10%;
+
+  /* 🎯 ANIMATION SETTINGS */
+  --glass-transition-speed: 0.3s;
+  --glass-transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 🌙 DARK MODE OVERRIDES */
+[data-theme="dark"] {
+  --glass-bg-opacity-start: 0.12;
+  --glass-bg-opacity-mid: 0.06;
+  --glass-bg-opacity-end: 0.08;
+  --glass-border-opacity: 0.3;
+
+  --glass-shadow-main: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --glass-shadow-hover-main: 0 16px 50px rgba(0, 0, 0, 0.5);
+  --glass-shadow-hover-secondary: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+  --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+
+  --highlight-top-intensity: 0.35;
+  --highlight-top-falloff: 0.15;
+  --highlight-bottom-intensity: 0.08;
+  --inner-glow-intensity: 0.3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass-bg-opacity-start: 0.12;
+    --glass-bg-opacity-mid: 0.06;
+    --glass-bg-opacity-end: 0.08;
+    --glass-border-opacity: 0.3;
+
+    --glass-shadow-main: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.25);
+    --glass-shadow-hover-main: 0 16px 50px rgba(0, 0, 0, 0.5);
+    --glass-shadow-hover-secondary: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+    --glass-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    --glass-inset-dark: inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+
+    --highlight-top-intensity: 0.35;
+    --highlight-top-falloff: 0.15;
+    --highlight-bottom-intensity: 0.08;
+    --inner-glow-intensity: 0.3;
+  }
+}
+
+/* 🎮 PRESET CONFIGURATIONS - Uncomment om te experimenteren! */
+
+/* EXTREME LIQUID - Voor maximaal effect */
+/*
+:root {
+  --glass-blur-base: 20px;
+  --glass-blur-hover: 24px;
+  --distortion-scale: 35;
+  --distortion-frequency-x: 0.025;
+  --distortion-frequency-y: 0.035;
+  --glass-shadow-main: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --glass-shadow-hover-main: 0 25px 70px rgba(0, 0, 0, 0.4);
+  --highlight-top-intensity: 0.9;
+  --glass-saturation: 200%;
+  --glass-brightness: 115%;
+}
+*/
+
+/* SUBTLE GLASS - Voor minimalistisch effect */
+/*
+:root {
+  --glass-blur-base: 8px; 
+  --glass-blur-hover: 10px;
+  --distortion-scale: 10;
+  --glass-bg-opacity-start: 0.15;
+  --glass-bg-opacity-mid: 0.08;
+  --glass-bg-opacity-end: 0.12;
+  --glass-shadow-main: 0 6px 20px rgba(0, 0, 0, 0.15);
+  --glass-shadow-hover-main: 0 8px 25px rgba(0, 0, 0, 0.2);
+  --highlight-top-intensity: 0.4;
+  --glass-saturation: 130%;
+}
+*/
+
+/* NEON GLOW - Voor futuristische look */
+/*
+:root {
+  --glass-blur-base: 16px;
+  --glass-blur-hover: 20px;
+  --glass-saturation: 220%;
+  --glass-brightness: 125%;
+  --glass-shadow-main: 0 15px 45px rgba(79, 70, 229, 0.3);
+  --glass-shadow-hover-main: 0 20px 55px rgba(79, 70, 229, 0.4);
+  --highlight-top-intensity: 0.8;
+  --inner-glow-intensity: 0.8;
+  --distortion-scale: 25;
+}
+*/
+
+/* FROSTED GLASS - Voor matte look */
+/*
+:root {
+  --glass-blur-base: 25px;
+  --glass-blur-hover: 28px;
+  --glass-saturation: 120%;
+  --glass-bg-opacity-start: 0.35;
+  --glass-bg-opacity-mid: 0.25;
+  --glass-bg-opacity-end: 0.30;
+  --distortion-scale: 5;
+  --highlight-top-intensity: 0.5;
+  --glass-contrast: 105%;
+}
+*/
+
+/* CRYSTAL CLEAR - Voor ultra-transparant effect */
+/*
+:root {
+  --glass-blur-base: 12px;
+  --glass-blur-hover: 14px;
+  --glass-bg-opacity-start: 0.08;
+  --glass-bg-opacity-mid: 0.04;
+  --glass-bg-opacity-end: 0.06;
+  --glass-border-opacity: 0.8;
+  --highlight-top-intensity: 0.9;
+  --inner-glow-intensity: 0.7;
+  --glass-saturation: 180%;
+  --distortion-scale: 15;
+}
+*/

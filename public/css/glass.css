@@ -1,0 +1,176 @@
+/* 🎯 DEFINITIEVE LIQUID GLASS STRUCTUUR - De "Layer Cake" */
+
+.liquid-glass-navbar {
+  position: relative;
+  isolation: isolate; /* Essentieel voor z-index stapeling */
+
+  /* 🎯 LAAG 2: HET FYSIEKE GLAS - Volledig configureerbaar */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, var(--glass-bg-opacity-start)) 0%,
+    rgba(255, 255, 255, var(--glass-bg-opacity-mid)) 50%,
+    rgba(255, 255, 255, var(--glass-bg-opacity-end)) 100%
+  );
+
+  /* Configureerbare 3D schaduwen */
+  box-shadow: var(--glass-shadow-main), var(--glass-shadow-secondary), var(--glass-inset-light), var(--glass-inset-dark);
+
+  /* Configureerbare glanzende rand */
+  border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity));
+
+  /* Configureerbare smooth transitions */
+  transition: all var(--glass-transition-speed) var(--glass-transition-easing);
+}
+
+/* 🎯 LAAG 1: DE GLANS - Configureerbare highlights */
+.liquid-glass-navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* Tussen body en effect-laag */
+  border-radius: inherit;
+
+  /* Configureerbare radial gradients voor 3D-rand effect */
+  background: radial-gradient(
+      ellipse var(--highlight-ellipse-width) var(--highlight-ellipse-height) at 50% var(--highlight-position-y),
+      rgba(255, 255, 255, var(--highlight-top-intensity)) 0%,
+      rgba(255, 255, 255, var(--highlight-top-falloff)) 30%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      ellipse 120% 80% at 50% 125%,
+      rgba(255, 255, 255, var(--highlight-bottom-intensity)) 0%,
+      rgba(255, 255, 255, 0) 50%
+    );
+
+  /* Configureerbare inner glow voor diepte */
+  box-shadow: inset 0 0 20px var(--inner-glow-spread) rgba(255, 255, 255, var(--inner-glow-intensity)), inset 0
+    var(--inner-shadow-offset) var(--inner-shadow-blur) rgba(0, 0, 0, 0.08);
+
+  transition: all var(--glass-transition-speed) var(--glass-transition-easing);
+}
+
+/* 🎯 LAAG 3: DE EFFECTEN - Configureerbare backdrop filters */
+.liquid-glass-navbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2; /* Achter alle andere lagen */
+  border-radius: inherit;
+
+  /* Configureerbare backdrop filters */
+  backdrop-filter: blur(var(--glass-blur-base)) saturate(var(--glass-saturation)) contrast(var(--glass-contrast))
+    brightness(var(--glass-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur-base)) saturate(var(--glass-saturation))
+    contrast(var(--glass-contrast)) brightness(var(--glass-brightness));
+
+  transition: all var(--glass-transition-speed) var(--glass-transition-easing);
+}
+
+/* 🎯 PROGRESSIVE ENHANCEMENT: SVG Liquid Distortion */
+@supports (backdrop-filter: url(#liquid-distortion)) {
+  .liquid-glass-navbar::after {
+    backdrop-filter: blur(var(--glass-blur-base)) saturate(var(--glass-saturation)) contrast(var(--glass-contrast))
+      brightness(var(--glass-brightness)) url(#liquid-distortion);
+    -webkit-backdrop-filter: blur(var(--glass-blur-base)) saturate(var(--glass-saturation))
+      contrast(var(--glass-contrast)) brightness(var(--glass-brightness)) url(#liquid-distortion);
+  }
+}
+
+/* 🎯 HOVER EFFECTS - Configureerbare intensificatie */
+.liquid-glass-navbar:hover {
+  transform: translateY(var(--hover-lift));
+
+  box-shadow: var(--glass-shadow-hover-main), var(--glass-shadow-hover-secondary), var(--glass-inset-light),
+    var(--glass-inset-dark);
+}
+
+.liquid-glass-navbar:hover::before {
+  background: radial-gradient(
+      ellipse var(--highlight-ellipse-width) var(--highlight-ellipse-height) at 50% var(--highlight-position-y),
+      rgba(255, 255, 255, var(--hover-highlight-boost)) 0%,
+      rgba(255, 255, 255, calc(var(--highlight-top-falloff) + 0.1)) 30%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      ellipse 120% 80% at 50% 125%,
+      rgba(255, 255, 255, calc(var(--highlight-bottom-intensity) + 0.05)) 0%,
+      rgba(255, 255, 255, 0) 50%
+    );
+
+  box-shadow: inset 0 0 25px -6px rgba(255, 255, 255, calc(var(--inner-glow-intensity) + 0.2)), inset 0 -4px 8px
+    rgba(0, 0, 0, 0.1);
+}
+
+.liquid-glass-navbar:hover::after {
+  backdrop-filter: blur(calc(var(--glass-blur-base) + var(--hover-blur-boost)))
+    saturate(calc(var(--glass-saturation) + var(--hover-saturation-boost))) contrast(var(--glass-contrast))
+    brightness(var(--glass-brightness));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur-base) + var(--hover-blur-boost)))
+    saturate(calc(var(--glass-saturation) + var(--hover-saturation-boost))) contrast(var(--glass-contrast))
+    brightness(var(--glass-brightness));
+}
+
+@supports (backdrop-filter: url(#liquid-distortion)) {
+  .liquid-glass-navbar:hover::after {
+    backdrop-filter: blur(calc(var(--glass-blur-base) + var(--hover-blur-boost)))
+      saturate(calc(var(--glass-saturation) + var(--hover-saturation-boost))) contrast(var(--glass-contrast))
+      brightness(var(--glass-brightness)) url(#liquid-distortion);
+    -webkit-backdrop-filter: blur(calc(var(--glass-blur-base) + var(--hover-blur-boost)))
+      saturate(calc(var(--glass-saturation) + var(--hover-saturation-boost))) contrast(var(--glass-contrast))
+      brightness(var(--glass-brightness)) url(#liquid-distortion);
+  }
+}
+
+/* 🎯 PERFORMANCE OPTIMIZATIONS */
+.liquid-glass-navbar,
+.liquid-glass-navbar::before,
+.liquid-glass-navbar::after {
+  will-change: transform, backdrop-filter, box-shadow;
+}
+
+/* 🎯 FALLBACKS */
+@supports not (backdrop-filter: blur(1px)) {
+  .liquid-glass-navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  [data-theme="dark"] .liquid-glass-navbar {
+    background: rgba(0, 0, 0, 0.95) !important;
+  }
+}
+
+/* 🎯 ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-glass-navbar {
+    transition: none;
+  }
+
+  .liquid-glass-navbar:hover {
+    transform: none;
+  }
+
+  .liquid-glass-navbar::before,
+  .liquid-glass-navbar::after {
+    transition: none;
+  }
+}
+
+/* 🎯 MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+  .liquid-glass-navbar {
+    /* Minder intensieve effecten op mobiel voor betere performance */
+    --glass-blur-base: 12px;
+    --distortion-scale: 15;
+  }
+}
+
+/* 🎯 HIGH CONTRAST MODE SUPPORT */
+@media (prefers-contrast: high) {
+  .liquid-glass-navbar {
+    --glass-bg-opacity-start: 0.9;
+    --glass-bg-opacity-mid: 0.85;
+    --glass-bg-opacity-end: 0.9;
+    --glass-border-opacity: 1;
+  }
+}
