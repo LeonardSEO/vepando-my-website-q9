@@ -1,4 +1,4 @@
-a{
+{
   "crons": [
     { "path": "/api/deps", "schedule": "0 0 * * 0" }
   ],
