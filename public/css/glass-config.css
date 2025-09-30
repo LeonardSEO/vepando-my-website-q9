@@ -16,10 +16,10 @@
   --distortion-seed: 7;
 
   /* 🎯 GLASS BODY SETTINGS */
-  --glass-bg-opacity-start: 0.28;
-  --glass-bg-opacity-mid: 0.12;
-  --glass-bg-opacity-end: 0.18;
-  --glass-border-opacity: 0.5;
+  --glass-bg-opacity-start: 0.28 !important;
+  --glass-bg-opacity-mid: 0.12 !important;
+  --glass-bg-opacity-end: 0.18 !important;
+  --glass-border-opacity: 0.5 !important;
 
   /* 3D Shadow Depth */
   --glass-shadow-main: 0 20px 60px rgba(0, 0, 0, 0.35) !important;
@@ -58,10 +58,10 @@
 
 /* 🌙 DARK MODE OVERRIDES */
 [data-theme="dark"] {
-  --glass-bg-opacity-start: 0.12;
-  --glass-bg-opacity-mid: 0.06;
-  --glass-bg-opacity-end: 0.08;
-  --glass-border-opacity: 0.3;
+  --glass-bg-opacity-start: 0.12 !important;
+  --glass-bg-opacity-mid: 0.06 !important;
+  --glass-bg-opacity-end: 0.08 !important;
+  --glass-border-opacity: 0.3 !important;
 
   --glass-shadow-main: 0 12px 40px rgba(0, 0, 0, 0.4);
   --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.25);
@@ -79,10 +79,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --glass-bg-opacity-start: 0.12;
-    --glass-bg-opacity-mid: 0.06;
-    --glass-bg-opacity-end: 0.08;
-    --glass-border-opacity: 0.3;
+    --glass-bg-opacity-start: 0.12 !important;
+    --glass-bg-opacity-mid: 0.06 !important;
+    --glass-bg-opacity-end: 0.08 !important;
+    --glass-border-opacity: 0.3 !important;
 
     --glass-shadow-main: 0 12px 40px rgba(0, 0, 0, 0.4);
     --glass-shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.25);
@@ -123,9 +123,9 @@
   --glass-blur-base: 8px; 
   --glass-blur-hover: 10px;
   --distortion-scale: 10;
-  --glass-bg-opacity-start: 0.15;
-  --glass-bg-opacity-mid: 0.08;
-  --glass-bg-opacity-end: 0.12;
+  --glass-bg-opacity-start: 0.15 !important;
+  --glass-bg-opacity-mid: 0.08 !important;
+  --glass-bg-opacity-end: 0.12 !important;
   --glass-shadow-main: 0 6px 20px rgba(0, 0, 0, 0.15);
   --glass-shadow-hover-main: 0 8px 25px rgba(0, 0, 0, 0.2);
   --highlight-top-intensity: 0.4;
@@ -154,9 +154,9 @@
   --glass-blur-base: 25px;
   --glass-blur-hover: 28px;
   --glass-saturation: 120%;
-  --glass-bg-opacity-start: 0.35;
-  --glass-bg-opacity-mid: 0.25;
-  --glass-bg-opacity-end: 0.30;
+  --glass-bg-opacity-start: 0.35 !important;
+  --glass-bg-opacity-mid: 0.25 !important;
+  --glass-bg-opacity-end: 0.30 !important;
   --distortion-scale: 5;
   --highlight-top-intensity: 0.5;
   --glass-contrast: 105%;
@@ -168,9 +168,9 @@
 :root {
   --glass-blur-base: 12px;
   --glass-blur-hover: 14px;
-  --glass-bg-opacity-start: 0.08;
-  --glass-bg-opacity-mid: 0.04;
-  --glass-bg-opacity-end: 0.06;
+  --glass-bg-opacity-start: 0.08 !important;
+  --glass-bg-opacity-mid: 0.04 !important;
+  --glass-bg-opacity-end: 0.06 !important;
   --glass-border-opacity: 0.8;
   --highlight-top-intensity: 0.9;
   --inner-glow-intensity: 0.7;
