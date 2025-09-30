@@ -314,7 +314,7 @@ html {
 }
 
 /* LIQUID GLASS NAVBAR - ADVANCED WEBGL VERSION */
-@import url("/js/liquid-glass/glass.css");
+@import url("/css/glass.css");
 
 /* Enhanced navbar-specific glass styling */
 .navbar-content-wrapper {

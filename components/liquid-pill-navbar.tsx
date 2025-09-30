@@ -10,7 +10,7 @@ export default function LiquidPillNavbar() {
   }
 
   return (
-    <div className="fixed top-2 sm:top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-[95%] sm:max-w-3xl">
+    <div className="fixed top-2 sm:top-4 inset-x-0 mx-auto z-50 w-full max-w-[95%] sm:max-w-3xl">
       {/* 🎯 DEFINITIEVE LIQUID GLASS - Gelaagde CSS + SVG Filters */}
       <div
         className="liquid-glass-navbar relative h-[56px] sm:h-[64px] rounded-full flex items-center justify-between px-6 sm:px-8"

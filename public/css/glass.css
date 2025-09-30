@@ -12,6 +12,12 @@
     rgba(255, 255, 255, var(--glass-bg-opacity-end)) 100%
   );
 
+  /* Configureerbare backdrop filters direct op het hoofdelement */
+  backdrop-filter: blur(var(--glass-blur-base)) saturate(var(--glass-saturation))
+    contrast(var(--glass-contrast)) brightness(var(--glass-brightness));
+  -webkit-backdrop-filter: blur(var(--glass-blur-base)) saturate(var(--glass-saturation))
+    contrast(var(--glass-contrast)) brightness(var(--glass-brightness));
+
   /* Configureerbare 3D schaduwen */
   box-shadow: var(--glass-shadow-main), var(--glass-shadow-secondary), var(--glass-inset-light), var(--glass-inset-dark);
 
@@ -80,6 +86,13 @@
 /* 🎯 HOVER EFFECTS - Configureerbare intensificatie */
 .liquid-glass-navbar:hover {
   transform: translateY(var(--hover-lift));
+
+  backdrop-filter: blur(calc(var(--glass-blur-base) + var(--hover-blur-boost)))
+    saturate(calc(var(--glass-saturation) + var(--hover-saturation-boost))) contrast(var(--glass-contrast))
+    brightness(var(--glass-brightness));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur-base) + var(--hover-blur-boost)))
+    saturate(calc(var(--glass-saturation) + var(--hover-saturation-boost))) contrast(var(--glass-contrast))
+    brightness(var(--glass-brightness));
 
   box-shadow: var(--glass-shadow-hover-main), var(--glass-shadow-hover-secondary), var(--glass-inset-light),
     var(--glass-inset-dark);
