@@ -1,13 +1,18 @@
 import Image from "next/image"
+import { headers } from "next/headers"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, ArrowRight, Star, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
+import Script from "next/script"
+import { SERVICE_JSON_LD } from "@/lib/structured-data"
 
 // Force static generation for better crawler support
 export const dynamic = "force-static"
 
-export default function StaticVepandoPage() {
+export default async function StaticVepandoPage() {
+  const nonce = (await headers()).get("x-nonce") ?? undefined
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Skip Link for Accessibility */}
@@ -52,54 +57,14 @@ export default function StaticVepandoPage() {
       </noscript>
 
       {/* Structured Data for Services */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: "AI Agent Development voor MKB",
-            provider: {
-              "@type": "Organization",
-              name: "VEPANDO",
-            },
-            description:
-              "Wij bouwen binnen 30 dagen een AI Agent die repetitieve taken automatiseert voor MKB bedrijven",
-            serviceType: "AI Automation",
-            areaServed: "Nederland",
-            hasOfferCatalog: {
-              "@type": "OfferCatalog",
-              name: "AI Agent Services",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Marketing Agent",
-                    description: "AI agent voor marketingcampagne automatisering en Google Ads optimalisatie",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Klantenservice Agent",
-                    description: "24/7 AI chatbot voor klantenservice en CRM automatisering",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Administratie Agent",
-                    description: "AI voor factuurverwerking en boekhouding automatisering",
-                  },
-                },
-              ],
-            },
-          }),
-        }}
-      />
+        <Script
+          id="service-jsonld-static"
+          nonce={nonce}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(SERVICE_JSON_LD),
+          }}
+        />
 
       {/* Static Navigation for Crawlers */}
       <nav className="bg-card border-b border-border p-4">

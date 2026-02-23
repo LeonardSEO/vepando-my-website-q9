@@ -4,7 +4,8 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Linkedin, Mail } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import Script from "next/script"
 import LiquidPillNavbar from "@/components/liquid-pill-navbar"
 import BookingSection from "@/components/booking-section"
 import ReviewsSlider from "@/components/reviews-slider"
@@ -12,13 +13,10 @@ import SocialProofSection from "@/components/social-proof-section"
 import CiteMetActionHub from "@/components/cite-met-action-hub"
 import Link from "next/link"
 import { analytics } from "@/lib/analytics"
+import { SERVICE_JSON_LD } from "@/lib/structured-data"
 
 export default function VepandoLandingPage() {
-  const [isLoaded, setIsLoaded] = useState(false)
-
   useEffect(() => {
-    setIsLoaded(true)
-
     // Track page load performance
     const startTime = performance.now()
     const handleLoad = () => {
@@ -33,16 +31,6 @@ export default function VepandoLandingPage() {
       return () => window.removeEventListener("load", handleLoad)
     }
   }, [])
-
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-pulse" aria-label="Pagina wordt geladen">
-          <div className="w-32 h-8 bg-primary/20 rounded"></div>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -88,52 +76,11 @@ export default function VepandoLandingPage() {
       </noscript>
 
       {/* Structured Data for Services */}
-      <script
+      <Script
+        id="service-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: "AI Agent Development voor MKB",
-            provider: {
-              "@type": "Organization",
-              name: "VEPANDO",
-            },
-            description:
-              "Wij bouwen binnen 30 dagen een AI Agent die repetitieve taken automatiseert voor MKB bedrijven",
-            serviceType: "AI Automation",
-            areaServed: "Nederland",
-            hasOfferCatalog: {
-              "@type": "OfferCatalog",
-              name: "AI Agent Services",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Marketing Agent",
-                    description: "AI agent voor marketingcampagne automatisering en Google Ads optimalisatie",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Klantenservice Agent",
-                    description: "24/7 AI chatbot voor klantenservice en CRM automatisering",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Administratie Agent",
-                    description: "AI voor factuurverwerking en boekhouding automatisering",
-                  },
-                },
-              ],
-            },
-          }),
+          __html: JSON.stringify(SERVICE_JSON_LD),
         }}
       />
 

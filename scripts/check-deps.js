@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const { execSync } = require("child_process")
 const fs = require("fs")
 const path = require("path")
 
@@ -21,38 +20,40 @@ function checkDependencies() {
     // Read package.json
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"))
 
-    // Check if node_modules exists
+    // Check if node_modules exists (read-only check; do not mutate from runtime)
     const nodeModulesPath = path.join(process.cwd(), "node_modules")
-    if (!fs.existsSync(nodeModulesPath)) {
-      console.log("📦 Installing dependencies...")
-      execSync("npm install", { stdio: "inherit" })
-    }
+    const nodeModulesExists = fs.existsSync(nodeModulesPath)
 
     // Check critical dependencies
     const criticalDeps = ["next", "react", "react-dom", "@vercel/analytics"]
 
     const missingDeps = []
+    const installedCriticalDeps = {}
 
     criticalDeps.forEach((dep) => {
       const depPath = path.join(nodeModulesPath, dep)
       if (!fs.existsSync(depPath)) {
         missingDeps.push(dep)
+        return
+      }
+
+      const depPackageJsonPath = path.join(depPath, "package.json")
+      if (fs.existsSync(depPackageJsonPath)) {
+        try {
+          const depPackageJson = JSON.parse(fs.readFileSync(depPackageJsonPath, "utf8"))
+          installedCriticalDeps[dep] = depPackageJson.version || "unknown"
+        } catch {
+          installedCriticalDeps[dep] = "unknown"
+        }
+      } else {
+        installedCriticalDeps[dep] = "unknown"
       }
     })
 
-    if (missingDeps.length > 0) {
-      console.log(`⚠️  Missing dependencies: ${missingDeps.join(", ")}`)
-      console.log("📦 Installing missing dependencies...")
-      execSync("npm install", { stdio: "inherit" })
-    }
-
-    // Check for security vulnerabilities
-    try {
-      console.log("🔒 Checking for security vulnerabilities...")
-      execSync("npm audit --audit-level=high", { stdio: "pipe" })
-      console.log("✅ No high-severity vulnerabilities found")
-    } catch (error) {
-      console.log('⚠️  Security vulnerabilities detected. Run "npm audit fix" to resolve.')
+    if (!nodeModulesExists) {
+      console.log("⚠️  node_modules folder not found")
+    } else if (missingDeps.length > 0) {
+      console.log(`⚠️  Missing critical dependencies: ${missingDeps.join(", ")}`)
     }
 
     // Check TypeScript configuration
@@ -71,9 +72,11 @@ function checkDependencies() {
 
     return {
       success: true,
+      nodeModulesExists,
       dependencies: Object.keys(packageJson.dependencies || {}),
       devDependencies: Object.keys(packageJson.devDependencies || {}),
-      missingDeps: [],
+      installedCriticalDeps,
+      missingDeps,
     }
   } catch (error) {
     console.error("❌ Error checking dependencies:", error.message)

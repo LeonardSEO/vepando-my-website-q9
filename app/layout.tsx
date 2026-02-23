@@ -1,15 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { GeistSans } from "geist/font/sans"
+import { headers } from "next/headers"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-})
 
 export const metadata: Metadata = {
   title: "VEPANDO - AI Agents voor MKB | 30 Dagen naar Automatisering",
@@ -18,13 +13,17 @@ export const metadata: Metadata = {
     generator: 'v0.app'
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Force dynamic rendering so Next can propagate CSP nonces from middleware
+  // to its internal inline/runtime scripts.
+  await headers()
+
   return (
-    <html lang="nl" suppressHydrationWarning className={inter.variable}>
+    <html lang="nl" suppressHydrationWarning className={GeistSans.variable}>
       <head>
         {/* 🎯 DEFINITIEVE CONFIGUREERBARE LIQUID GLASS - Juiste volgorde! */}
         {/* EERST: De configuratie (variabelen) */}
@@ -32,25 +31,12 @@ export default function RootLayout({
         {/* DAARNA: De structuur (die de variabelen gebruikt) */}
         <link rel="stylesheet" href="/css/glass.css" />
 
-        {/* Theme detection */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                function getTheme() {
-                  const stored = localStorage.getItem('theme');
-                  if (stored === 'light' || stored === 'dark') return stored;
-                  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                }
-                document.documentElement.setAttribute('data-theme', getTheme());
-              })();
-            `,
-          }}
-        />
+        {/* Theme detection bootstrap is external to avoid inline-script CSP exceptions */}
+        <script src="/js/theme-bootstrap.js" />
 
       </head>
       <body
-        className={`${inter.className} bg-[radial-gradient(1200px_800px_at_50%_-200px,rgba(79,70,229,0.12),transparent)]`}
+        className={`${GeistSans.className} bg-[radial-gradient(1200px_800px_at_50%_-200px,rgba(79,70,229,0.12),transparent)]`}
       >
         {/* 🎯 CONFIGUREERBARE SVG FILTERS - Nu met meerdere varianten */}
         <svg style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }} aria-hidden="true">

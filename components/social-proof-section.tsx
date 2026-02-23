@@ -28,6 +28,13 @@ const companies = [
   },
 ]
 
+function renderLogoFallback(parent: HTMLElement, text: string) {
+  const fallback = document.createElement("div")
+  fallback.className = "text-sm font-medium text-muted-foreground px-4 py-2 bg-muted rounded"
+  fallback.textContent = text
+  parent.replaceChildren(fallback)
+}
+
 export default function SocialProofSection() {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -97,7 +104,7 @@ export default function SocialProofSection() {
                       target.style.display = "none"
                       const parent = target.parentElement
                       if (parent) {
-                        parent.innerHTML = `<div class="text-sm font-medium text-muted-foreground px-4 py-2 bg-muted rounded">${company.fallback}</div>`
+                        renderLogoFallback(parent, company.fallback)
                       }
                     }}
                   />
@@ -142,7 +149,7 @@ export default function SocialProofSection() {
                       target.style.display = "none"
                       const parent = target.parentElement
                       if (parent) {
-                        parent.innerHTML = `<div class="text-sm font-medium text-muted-foreground px-4 py-2 bg-muted rounded">${company.fallback}</div>`
+                        renderLogoFallback(parent, company.fallback)
                       }
                     }}
                   />

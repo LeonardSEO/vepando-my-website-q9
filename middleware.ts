@@ -1,27 +1,58 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+function generateNonce() {
+  const bytes = new Uint8Array(16)
+  crypto.getRandomValues(bytes)
+
+  let binary = ""
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte)
+  }
+
+  return btoa(binary)
+}
 
 export function middleware(request: NextRequest) {
-  // Create response
-  const response = NextResponse.next()
+  const nonce = generateNonce()
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set("x-nonce", nonce)
+
+  // Create response and pass the nonce to Next so framework scripts can be nonced.
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  })
+  const isDev = process.env.NODE_ENV !== "production"
+  const isHttps =
+    request.headers.get("x-forwarded-proto") === "https" || request.nextUrl.protocol === "https:"
 
   // Enhanced Security Headers
   response.headers.set("X-Frame-Options", "SAMEORIGIN") // Changed from DENY to allow Cal.com embed
   response.headers.set("X-Content-Type-Options", "nosniff")
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
-  response.headers.set("X-XSS-Protection", "1; mode=block")
 
   // Cross-Origin-Opener-Policy - Relaxed for Cal.com
   response.headers.set("Cross-Origin-Opener-Policy", "same-origin-allow-popups")
   response.headers.set("Cross-Origin-Embedder-Policy", "unsafe-none") // Changed for Cal.com compatibility
 
-  // Strict Transport Security
-  response.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
+  // HSTS only makes sense over HTTPS. Avoid sending preload by default.
+  if (isHttps) {
+    response.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+  }
 
   // Enhanced Content Security Policy - Cal.com + Cloudflare friendly
+  const scriptSrc = [
+    `script-src 'self' 'nonce-${nonce}'`,
+    isDev ? "'unsafe-eval'" : "",
+    "https://embed.typeform.com https://js.stripe.com https://cal.com https://app.cal.com https://embed.cal.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://cloudflareinsights.com",
+  ]
+    .filter(Boolean)
+    .join(" ")
+
   const csp = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://embed.typeform.com https://js.stripe.com https://cal.com https://app.cal.com https://embed.cal.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://cloudflareinsights.com",
+    scriptSrc,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cal.com https://app.cal.com https://embed.cal.com",
     "img-src 'self' data: blob: https://cal.com https://app.cal.com https://embed.cal.com https://avatars.githubusercontent.com",
     "font-src 'self' https://fonts.gstatic.com https://cal.com https://app.cal.com https://embed.cal.com",
@@ -67,6 +98,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public folder
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 }

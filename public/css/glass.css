@@ -25,7 +25,11 @@
   border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity));
 
   /* Configureerbare smooth transitions */
-  transition: all var(--glass-transition-speed) var(--glass-transition-easing);
+  transition:
+    transform var(--glass-transition-speed) var(--glass-transition-easing),
+    box-shadow var(--glass-transition-speed) var(--glass-transition-easing),
+    backdrop-filter var(--glass-transition-speed) var(--glass-transition-easing),
+    -webkit-backdrop-filter var(--glass-transition-speed) var(--glass-transition-easing);
 }
 
 /* 🎯 LAAG 1: DE GLANS - Configureerbare highlights */
@@ -53,7 +57,9 @@
   box-shadow: inset 0 0 20px var(--inner-glow-spread) rgba(255, 255, 255, var(--inner-glow-intensity)), inset 0
     var(--inner-shadow-offset) var(--inner-shadow-blur) rgba(0, 0, 0, 0.08);
 
-  transition: all var(--glass-transition-speed) var(--glass-transition-easing);
+  transition:
+    background var(--glass-transition-speed) var(--glass-transition-easing),
+    box-shadow var(--glass-transition-speed) var(--glass-transition-easing);
 }
 
 /* 🎯 LAAG 3: DE EFFECTEN - Configureerbare backdrop filters */
@@ -70,7 +76,9 @@
   -webkit-backdrop-filter: blur(var(--glass-blur-base)) saturate(var(--glass-saturation))
     contrast(var(--glass-contrast)) brightness(var(--glass-brightness));
 
-  transition: all var(--glass-transition-speed) var(--glass-transition-easing);
+  transition:
+    backdrop-filter var(--glass-transition-speed) var(--glass-transition-easing),
+    -webkit-backdrop-filter var(--glass-transition-speed) var(--glass-transition-easing);
 }
 
 /* 🎯 PROGRESSIVE ENHANCEMENT: SVG Liquid Distortion */
@@ -136,10 +144,8 @@
 }
 
 /* 🎯 PERFORMANCE OPTIMIZATIONS */
-.liquid-glass-navbar,
-.liquid-glass-navbar::before,
-.liquid-glass-navbar::after {
-  will-change: transform, backdrop-filter, box-shadow;
+.liquid-glass-navbar {
+  will-change: transform;
 }
 
 /* 🎯 FALLBACKS */
