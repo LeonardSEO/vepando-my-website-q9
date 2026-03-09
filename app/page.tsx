@@ -1,10 +1,11 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import Image from "next/image"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Linkedin, Mail } from "lucide-react"
-import { useEffect } from "react"
 import Script from "next/script"
 import LiquidPillNavbar from "@/components/liquid-pill-navbar"
 import BookingSection from "@/components/booking-section"
@@ -15,7 +16,13 @@ import Link from "next/link"
 import { analytics } from "@/lib/analytics"
 import { SERVICE_JSON_LD } from "@/lib/structured-data"
 
+const NeuralTrail = dynamic(() => import("@/components/hero/NeuralTrail"), {
+  ssr: false,
+})
+
 export default function VepandoLandingPage() {
+  const heroRef = useRef<HTMLElement | null>(null)
+
   useEffect(() => {
     // Track page load performance
     const startTime = performance.now()
@@ -115,8 +122,22 @@ export default function VepandoLandingPage() {
       </div>
 
       {/* Hero Section */}
-      <header className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 z-10 pt-20 sm:pt-0">
-        <div className="max-w-4xl mx-auto text-center">
+      <header
+        ref={heroRef}
+        className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 z-10 pt-20 sm:pt-0"
+      >
+        <div
+          className="absolute inset-0 z-0 pointer-events-none"
+          style={{
+            maskImage: "linear-gradient(to bottom, black 0%, black 72%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 72%, transparent 100%)",
+          }}
+          aria-hidden="true"
+        >
+          <NeuralTrail containerRef={heroRef} />
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight mb-6 sm:mb-8">
             Huur een AI-collega die 24/7 voor je werkt. <span className="text-primary">Zonder salaris.</span>
           </h1>
