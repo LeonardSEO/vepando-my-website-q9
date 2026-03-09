@@ -12,7 +12,7 @@ interface CiteMetActionHubProps {
   pageExpertise: string
 }
 
-const CiteMetActionHub = ({ pageTitle, pageTopic, pageExpertise }: CiteMetActionHubProps) => {
+const CiteMetActionHub = ({ pageTopic, pageExpertise }: CiteMetActionHubProps) => {
   const [currentUrl, setCurrentUrl] = useState("")
   const [isExpanded, setIsExpanded] = useState(false)
   const [copied, setCopied] = useState(false)

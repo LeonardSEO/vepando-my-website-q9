@@ -75,7 +75,7 @@ export default function NotFound() {
                 <Home className="w-10 h-10 text-[#4F46E5] mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="font-bold text-white mb-2 text-lg">🏠 Veilige Haven</h3>
                 <p className="text-sm text-gray-400 mb-4">
-                  Teleporteer terug naar het hoofdkwartier waar onze AI's nog wel gehoorzaam zijn
+                  Teleporteer terug naar het hoofdkwartier waar onze AI&apos;s nog wel gehoorzaam zijn
                 </p>
                 <Button asChild className="w-full bg-[#4F46E5] hover:bg-[#4F46E5]/90 text-white">
                   <Link href="/">

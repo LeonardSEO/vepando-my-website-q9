@@ -2,6 +2,7 @@ import { timingSafeEqual } from "node:crypto"
 import { type NextRequest, NextResponse } from "next/server"
 
 // Import the dependency checker - CommonJS module shared with local scripts
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { checkDependencies } = require("../../../scripts/check-deps.js")
 
 function isAuthorized(request: NextRequest) {

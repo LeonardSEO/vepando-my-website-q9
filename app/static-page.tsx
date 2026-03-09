@@ -362,12 +362,12 @@ export default async function StaticVepandoPage() {
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                     ))}
-                    <a
+                    <Link
                       href="/#reviews"
                       className="ml-2 text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                     >
                       4.9/5 klantbeoordeling
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -423,15 +423,15 @@ export default async function StaticVepandoPage() {
             </Link>
 
             <nav className="flex flex-wrap justify-center items-center gap-6 text-sm" aria-label="Footer navigatie">
-              <a href="/#diensten" className="text-muted-foreground hover:text-primary transition-colors duration-200">
+              <Link href="/#diensten" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                 Services
-              </a>
-              <a href="/#booking" className="text-muted-foreground hover:text-primary transition-colors duration-200">
+              </Link>
+              <Link href="/#booking" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                 Contact
-              </a>
-              <a href="/legal" className="text-muted-foreground hover:text-primary transition-colors duration-200">
+              </Link>
+              <Link href="/legal" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                 Juridisch
-              </a>
+              </Link>
               <a
                 href="/sitemap.xml"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200"

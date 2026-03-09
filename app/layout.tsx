@@ -2,9 +2,12 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { headers } from "next/headers"
+import Script from "next/script"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+
+/* eslint-disable @next/next/no-css-tags */
 
 export const metadata: Metadata = {
   title: "VEPANDO - AI Agents voor MKB | 30 Dagen naar Automatisering",
@@ -32,7 +35,7 @@ export default async function RootLayout({
         <link rel="stylesheet" href="/css/glass.css" />
 
         {/* Theme detection bootstrap is external to avoid inline-script CSP exceptions */}
-        <script src="/js/theme-bootstrap.js" />
+        <Script src="/js/theme-bootstrap.js" strategy="beforeInteractive" />
 
       </head>
       <body

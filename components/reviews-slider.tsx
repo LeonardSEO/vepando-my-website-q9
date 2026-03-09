@@ -210,7 +210,7 @@ function ReviewCard({ review }: { review: (typeof reviews)[0] }) {
 
         {/* Quote - takes up remaining space */}
         <blockquote className="text-sm text-card-foreground italic leading-relaxed font-medium flex-1 flex items-start">
-          <span>"{review.quote}"</span>
+          <span>&ldquo;{review.quote}&rdquo;</span>
         </blockquote>
       </CardContent>
     </Card>

@@ -3,6 +3,7 @@
 import Cal, { getCalApi } from "@calcom/embed-react"
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, Star, Phone, Mail, Calendar } from "lucide-react"
 import { analytics } from "@/lib/analytics"
@@ -150,12 +151,12 @@ export default function BookingSection() {
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current" />
                       ))}
-                      <a
+                      <Link
                         href="/#reviews"
                         className="ml-1 sm:ml-2 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                       >
                         4.9/5 klantbeoordeling
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -172,7 +173,7 @@ export default function BookingSection() {
               <div className="flex items-start">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                 <span>
-                  <strong className="text-foreground">Een concreet 'AI Blueprint'</strong> voor jouw eerste AI Agent
+                  <strong className="text-foreground">Een concreet &apos;AI Blueprint&apos;</strong> voor jouw eerste AI Agent
                 </span>
               </div>
               <div className="flex items-start">

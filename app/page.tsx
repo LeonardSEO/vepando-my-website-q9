@@ -397,24 +397,24 @@ export default function VepandoLandingPage() {
 
             {/* Essential Links */}
             <nav className="flex flex-wrap justify-center items-center gap-6 text-sm" aria-label="Footer navigatie">
-              <a
+              <Link
                 href="/#diensten"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 min-h-[48px] flex items-center"
               >
                 Services
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/#booking"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 min-h-[48px] flex items-center"
               >
                 Contact
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/legal"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 min-h-[48px] flex items-center"
               >
                 Juridisch
-              </a>
+              </Link>
               <a
                 href="/sitemap.xml"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 min-h-[48px] flex items-center"

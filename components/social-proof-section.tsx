@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { analytics } from "@/lib/analytics"
 
@@ -170,13 +171,13 @@ export default function SocialProofSection() {
             <div className="w-px h-4 bg-border"></div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-              <a
+              <Link
                 href="/#reviews"
                 className="hover:text-primary transition-colors cursor-pointer"
                 onClick={() => analytics.reviewScoreClick()}
               >
                 4.9/5 ⭐ beoordeling
-              </a>
+              </Link>
             </div>
             <div className="w-px h-4 bg-border"></div>
             <div className="flex items-center space-x-2">
