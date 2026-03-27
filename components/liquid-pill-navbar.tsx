@@ -15,10 +15,7 @@ const supportsFluidGlass = () => {
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
   if (prefersReducedMotion) return false
 
-  const canvas = document.createElement("canvas")
-  const webglSupported = Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
-
-  return webglSupported
+  return Boolean(window.CSS?.supports?.("backdrop-filter", "blur(1px)") || window.CSS?.supports?.("-webkit-backdrop-filter", "blur(1px)"))
 }
 
 export default function LiquidPillNavbar() {
