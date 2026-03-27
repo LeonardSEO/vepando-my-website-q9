@@ -1,22 +1,58 @@
 "use client"
 
 import Image from "next/image"
+import { useEffect, useMemo, useState } from "react"
+import dynamic from "next/dynamic"
 import { analytics } from "@/lib/analytics"
 
+const FluidGlassPill = dynamic(() => import("@/components/fluid-glass-pill"), {
+  ssr: false,
+})
+
+const supportsFluidGlass = () => {
+  if (typeof window === "undefined") return false
+
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+  if (prefersReducedMotion) return false
+
+  const canvas = document.createElement("canvas")
+  const webglSupported = Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+
+  return webglSupported
+}
+
 export default function LiquidPillNavbar() {
+  const [useFluidGlass, setUseFluidGlass] = useState(false)
+
+  useEffect(() => {
+    setUseFluidGlass(supportsFluidGlass())
+  }, [])
+
   const scrollToTop = () => {
     analytics.navLogoClick()
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
+  const navClasses = useMemo(
+    () =>
+      "relative h-[56px] sm:h-[64px] rounded-full flex items-center justify-between px-6 sm:px-8 overflow-hidden",
+    [],
+  )
+
   return (
     <div className="fixed top-2 sm:top-4 inset-x-0 mx-auto z-50 w-full max-w-[95%] sm:max-w-3xl">
-      {/* 🎯 DEFINITIEVE LIQUID GLASS - Gelaagde CSS + SVG Filters */}
       <div
-        className="liquid-glass-navbar relative h-[56px] sm:h-[64px] rounded-full flex items-center justify-between px-6 sm:px-8"
+        className={useFluidGlass ? navClasses : `liquid-glass-navbar ${navClasses}`}
         role="navigation"
         aria-label="Hoofdmenu"
       >
+        {useFluidGlass && (
+          <>
+            <FluidGlassPill className="absolute inset-0 -z-20" />
+            <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-white/30 via-white/10 to-white/20 border border-white/40 shadow-[0_12px_40px_rgba(0,0,0,0.25)]" />
+          </>
+        )}
+
         {/* Logo Button */}
         <button
           onClick={scrollToTop}
