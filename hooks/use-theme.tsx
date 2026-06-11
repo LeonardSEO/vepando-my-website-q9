@@ -16,8 +16,12 @@ export function useTheme() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setTheme(getPreferred())
-    setMounted(true)
+    const timer = window.setTimeout(() => {
+      setTheme(getPreferred())
+      setMounted(true)
+    }, 0)
+
+    return () => window.clearTimeout(timer)
   }, [])
 
   useEffect(() => {

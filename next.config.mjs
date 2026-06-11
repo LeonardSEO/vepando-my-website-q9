@@ -1,21 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Pin build tracing to this project (a stray lockfile in the home
+  // directory otherwise makes Next pick the wrong workspace root)
+  outputFileTracingRoot: import.meta.dirname,
+
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Allowed <Image quality> values (required from Next.js 16 onwards).
+    // 75 is Next's default for images without an explicit quality prop —
+    // omitting it remaps those images and causes a hydration mismatch.
+    qualities: [75, 85, 90],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // Compression
   compress: true,
-
-  // Performance optimizations
-  experimental: {
-    optimizePackageImports: ['lucide-react', '@calcom/embed-react'],
-  },
 
   // Compiler options for production optimization
   compiler: {
@@ -25,6 +28,7 @@ const nextConfig = {
 
   // Modern JavaScript target to reduce polyfills
   output: 'standalone',
+  cacheComponents: true,
 
   // SEO-Optimized Permanent Redirects
   async redirects() {
@@ -345,15 +349,6 @@ const nextConfig = {
           {
             key: 'Vary',
             value: 'Accept',
-          },
-        ],
-      },
-      {
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

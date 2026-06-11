@@ -11,32 +11,45 @@ export default function LiquidPillNavbar() {
 
   return (
     <div className="fixed top-2 sm:top-4 inset-x-0 mx-auto z-50 w-full max-w-[95%] sm:max-w-3xl">
-      {/* 🎯 DEFINITIEVE LIQUID GLASS - Gelaagde CSS + SVG Filters */}
-      <div
-        className="liquid-glass-navbar relative h-[56px] sm:h-[64px] rounded-full flex items-center justify-between px-6 sm:px-8"
-        role="navigation"
+      {/* The #liquid-lens SVG filter that drives the refraction lives in
+          app/layout.tsx (server-rendered) to avoid a hydration mismatch. */}
+      <nav
+        className="liquid-glass-navbar relative h-[56px] sm:h-[64px] rounded-full flex items-center justify-between pl-5 pr-2 sm:pl-7 sm:pr-2.5"
         aria-label="Hoofdmenu"
       >
-        {/* Logo Button */}
         <button
           onClick={scrollToTop}
           aria-label="Ga naar bovenkant van pagina"
-          className="relative h-[36px] sm:h-[40px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-full transition-all duration-200 hover:opacity-80 hover:scale-105 z-10"
+          className="relative h-[36px] sm:h-[40px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-full transition-opacity duration-200 hover:opacity-80"
         >
-          <Image
-            src="/images/vepando-logo-main.png"
-            alt="VEPANDO Logo"
-            width={160}
-            height={40}
-            className="h-[28px] sm:h-[32px] w-auto filter drop-shadow-sm"
-            priority
-          />
+          <span className="relative block h-[26px] w-[104px] sm:h-[30px] sm:w-[120px]">
+            <Image
+              src="/images/vepando-logo-main.png"
+              alt="VEPANDO Logo"
+              fill
+              quality={75}
+              className="brand-logo object-contain"
+              priority
+              sizes="(max-width: 640px) 104px, 120px"
+            />
+          </span>
         </button>
 
-        {/* CTA Button */}
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-foreground/80">
+          <a href="#diensten" className="hover:text-primary transition-colors duration-200 py-2">
+            Diensten
+          </a>
+          <a href="#werkwijze" className="hover:text-primary transition-colors duration-200 py-2">
+            Werkwijze
+          </a>
+          <a href="#reviews" className="hover:text-primary transition-colors duration-200 py-2">
+            Reviews
+          </a>
+        </div>
+
         <a
           href="#booking"
-          className="relative inline-flex items-center gap-2 px-6 sm:px-8 h-[40px] sm:h-[44px] rounded-full text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 z-10"
+          className="relative inline-flex items-center gap-2 px-5 sm:px-7 h-[42px] sm:h-[46px] rounded-full text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200 active:scale-[0.97]"
           onClick={() => analytics.navCtaClick()}
         >
           <span>Adviesgesprek</span>
@@ -44,7 +57,7 @@ export default function LiquidPillNavbar() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </a>
-      </div>
+      </nav>
     </div>
   )
 }

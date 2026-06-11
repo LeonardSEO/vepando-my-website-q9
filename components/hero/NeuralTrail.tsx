@@ -54,6 +54,7 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
     mode: "mouse",
   })
   const animationFrameRef = useRef<number | null>(null)
+  const runningRef = useRef(false)
   const lastEmitAtRef = useRef(0)
   const lastFrameTimeRef = useRef(0)
   const nextNodeIdRef = useRef(0)
@@ -136,6 +137,25 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
       lastEmitAtRef.current = timestamp
     }
 
+    const ensureRunning = () => {
+      if (runningRef.current || document.hidden) {
+        return
+      }
+
+      runningRef.current = true
+      lastFrameTimeRef.current = 0
+      animationFrameRef.current = window.requestAnimationFrame(drawFrame)
+    }
+
+    const stopLoop = () => {
+      runningRef.current = false
+
+      if (animationFrameRef.current !== null) {
+        window.cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
+      }
+    }
+
     const updatePointer = (clientX: number, clientY: number, mode: PointerState["mode"]) => {
       const rect = container.getBoundingClientRect()
 
@@ -147,6 +167,7 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
       }
 
       emitNode(performance.now(), mode)
+      ensureRunning()
     }
 
     const handleMouseMove = (event: MouseEvent) => {
@@ -212,6 +233,14 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
 
       nodesRef.current = activeNodes
 
+      // Idle stop: no nodes left and no active pointer means nothing to draw,
+      // so release the animation frame loop until the next pointer event.
+      if (activeNodes.length === 0 && !pointerRef.current.active) {
+        runningRef.current = false
+        animationFrameRef.current = null
+        return
+      }
+
       context.save()
       context.lineCap = "round"
 
@@ -267,7 +296,18 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
       }
 
       context.shadowBlur = 0
-      animationFrameRef.current = window.requestAnimationFrame(drawFrame)
+
+      if (runningRef.current) {
+        animationFrameRef.current = window.requestAnimationFrame(drawFrame)
+      }
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopLoop()
+      } else if (nodesRef.current.length > 0 || pointerRef.current.active) {
+        ensureRunning()
+      }
     }
 
     resizeCanvas()
@@ -283,14 +323,11 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
     container.addEventListener("touchmove", handleTouchMove, passiveTouch)
     container.addEventListener("touchend", handleTouchEnd, passiveTouch)
     container.addEventListener("touchcancel", handleTouchEnd, passiveTouch)
-
-    animationFrameRef.current = window.requestAnimationFrame(drawFrame)
+    document.addEventListener("visibilitychange", handleVisibilityChange)
 
     return () => {
-      if (animationFrameRef.current !== null) {
-        window.cancelAnimationFrame(animationFrameRef.current)
-      }
-
+      stopLoop()
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
       resizeObserver.disconnect()
       container.removeEventListener("mousemove", handleMouseMove)
       container.removeEventListener("mouseleave", handleMouseLeave)

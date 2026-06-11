@@ -1,76 +1,110 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
-import { headers } from "next/headers"
 import Script from "next/script"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
-import { Suspense } from "react"
-
-/* eslint-disable @next/next/no-css-tags */
 
 export const metadata: Metadata = {
-  title: "VEPANDO - AI Agents voor MKB | 30 Dagen naar Automatisering",
+  metadataBase: new URL("https://vepando.com"),
+  title: "VEPANDO - AI Agents voor MKB | Binnen 30 dagen live",
   description:
-    "Wij bouwen binnen 30 dagen een AI Agent die jouw repetitieve werk overneemt. Marketing, klantenservice & administratie automatisering voor MKB. Gratis adviesgesprek.",
-    generator: 'v0.app'
+    "Wij bouwen binnen 30 dagen een AI Agent die jouw repetitieve werk overneemt. Marketing, klantenservice en administratie automatisering voor het Nederlandse MKB. Gratis strategiesessie.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "nl_NL",
+    url: "https://vepando.com",
+    siteName: "VEPANDO",
+    title: "VEPANDO - AI Agents voor MKB | Binnen 30 dagen live",
+    description:
+      "Huur een AI-collega die 24/7 voor je werkt. Binnen 30 dagen live, voor een vaste prijs die je vooraf kent.",
+    images: [
+      {
+        url: "/images/vepando-logo-main.png",
+        width: 1200,
+        height: 630,
+        alt: "VEPANDO - AI Agents voor MKB",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VEPANDO - AI Agents voor MKB",
+    description:
+      "Huur een AI-collega die 24/7 voor je werkt. Binnen 30 dagen live, voor een vaste prijs die je vooraf kent.",
+    images: ["/images/vepando-logo-main.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/manifest.json",
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // Force dynamic rendering so Next can propagate CSP nonces from middleware
-  // to its internal inline/runtime scripts.
-  await headers()
-
   return (
     <html lang="nl" suppressHydrationWarning className={GeistSans.variable}>
       <head>
-        {/* 🎯 DEFINITIEVE CONFIGUREERBARE LIQUID GLASS - Juiste volgorde! */}
-        {/* EERST: De configuratie (variabelen) */}
-        <link rel="stylesheet" href="/css/glass-config.css" />
-        {/* DAARNA: De structuur (die de variabelen gebruikt) */}
-        <link rel="stylesheet" href="/css/glass.css" />
-
-        {/* Theme detection bootstrap is external to avoid inline-script CSP exceptions */}
+        {/* Theme detection runs before paint to prevent a flash of wrong theme */}
         <Script src="/js/theme-bootstrap.js" strategy="beforeInteractive" />
-
       </head>
       <body
         className={`${GeistSans.className} bg-[radial-gradient(1200px_800px_at_50%_-200px,rgba(79,70,229,0.12),transparent)]`}
       >
-        {/* 🎯 CONFIGUREERBARE SVG FILTERS - Nu met meerdere varianten */}
-        <svg style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }} aria-hidden="true">
-          <defs>
-            {/* Hoofdfilter - configureerbaar via CSS variabelen */}
-            <filter id="liquid-distortion" filterUnits="userSpaceOnUse">
-              <feTurbulence type="fractalNoise" baseFrequency="0.015 0.025" numOctaves="3" seed="7" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-
-            {/* Subtielere variant */}
-            <filter id="liquid-distortion-subtle" filterUnits="userSpaceOnUse">
-              <feTurbulence type="fractalNoise" baseFrequency="0.010 0.020" numOctaves="2" seed="3" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-
-            {/* Extreme variant */}
-            <filter id="liquid-distortion-extreme" filterUnits="userSpaceOnUse">
-              <feTurbulence type="fractalNoise" baseFrequency="0.025 0.035" numOctaves="4" seed="12" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="35" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-
-            {/* Crystal variant - voor ultra-clear effect */}
-            <filter id="liquid-distortion-crystal" filterUnits="userSpaceOnUse">
-              <feTurbulence type="fractalNoise" baseFrequency="0.008 0.015" numOctaves="1" seed="1" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
+        {/* Liquid Glass lens — referenced by .liquid-glass-navbar's backdrop-filter.
+            The SDF displacement map (public/images/liquid-lens-map.png) is neutral
+            grey in the center and ramps toward the rounded rim, so the backdrop is
+            only bent at the curved edges. Negative scale = magnifying lens, the way
+            Apple's Liquid Glass refracts content inward at the borders. Three passes
+            (R/G/B) at slightly different scales add chromatic aberration.
+            Kept in the server-rendered layout (not the client navbar) so the static
+            SVG never triggers a hydration mismatch. */}
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          style={{ position: "absolute", width: 0, height: 0, pointerEvents: "none" }}
+        >
+          <filter id="liquid-lens" colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
+            <feImage
+              href="/images/liquid-lens-map.png"
+              preserveAspectRatio="none"
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              result="map"
+            />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale="-44" xChannelSelector="R" yChannelSelector="G" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="dR" />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale="-42" xChannelSelector="R" yChannelSelector="G" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="dG" />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale="-40" xChannelSelector="R" yChannelSelector="G" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="dB" />
+            <feBlend in="dR" in2="dG" mode="screen" result="dRG" />
+            <feBlend in="dRG" in2="dB" mode="screen" />
+          </filter>
         </svg>
-
-        <Suspense fallback={null}>{children}</Suspense>
+        {children}
         <Analytics />
       </body>
     </html>

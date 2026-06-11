@@ -1,9 +1,27 @@
 import { timingSafeEqual } from "node:crypto"
 import { type NextRequest, NextResponse } from "next/server"
+import packageJson from "@/package.json"
 
-// Import the dependency checker - CommonJS module shared with local scripts
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { checkDependencies } = require("../../../scripts/check-deps.js")
+const criticalDeps = ["next", "react", "react-dom", "@vercel/analytics"] as const
+type CriticalDependency = (typeof criticalDeps)[number]
+
+function checkDependencies() {
+  const dependencies = packageJson.dependencies
+  const devDependencies = packageJson.devDependencies
+  const dependencyVersions = new Map<string, string>([...Object.entries(dependencies), ...Object.entries(devDependencies)])
+  const installedCriticalDeps = Object.fromEntries(
+    criticalDeps.map((dependency) => [dependency, dependencyVersions.get(dependency) ?? null]),
+  ) as Record<CriticalDependency, string | null>
+  const missingDeps = criticalDeps.filter((dependency) => !installedCriticalDeps[dependency])
+
+  return {
+    success: missingDeps.length === 0,
+    dependencies: Object.keys(dependencies),
+    devDependencies: Object.keys(devDependencies),
+    installedCriticalDeps,
+    missingDeps,
+  }
+}
 
 function isAuthorized(request: NextRequest) {
   const secret = process.env.CRON_SECRET
