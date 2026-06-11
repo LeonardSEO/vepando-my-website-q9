@@ -44,7 +44,7 @@ function isAuthorized(request: NextRequest) {
     return false
   }
 
-  return timingSafeEqual(expectedBuf, providedBuf)
+  return timingSafeEqual(new Uint8Array(expectedBuf), new Uint8Array(providedBuf))
 }
 
 function unauthorized() {
