@@ -54,7 +54,9 @@ export default function BookingSection() {
                     >
                       Leonard van Hemert
                     </a>
-                    <p className="text-muted-foreground text-xs sm:text-sm mb-1 sm:mb-2">Founder & AI Architect</p>
+                    <p className="text-muted-foreground text-xs sm:text-sm mb-1 sm:mb-2">
+                      Founder & AI Architect • sinds 2023
+                    </p>
                     <p className="text-xs sm:text-sm text-muted-foreground">
                       30+ AI Agents gebouwd voor Nederlandse MKB-bedrijven •{" "}
                       <Link href="/#reviews" className="text-primary hover:underline">
@@ -83,6 +85,11 @@ export default function BookingSection() {
 
             <p className="text-xs sm:text-sm text-muted-foreground mt-3 sm:mt-4 italic">
               Dit plan is 100% van jou, ook als je besluit niet met ons verder te gaan.
+            </p>
+
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2">
+              Ik neem bewust maar een beperkt aantal nieuwe trajecten per maand aan, zodat elke AI Agent de aandacht
+              krijgt die hij verdient.
             </p>
           </div>
 

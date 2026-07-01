@@ -12,7 +12,6 @@
 :root {
   --radius: 0.625rem;
   --background: 40 30% 96%;
-  --background-rgb: 248, 244, 236;
   --foreground: 220 20% 14%;
   --card: 40 33% 98%;
   --card-rgb: 253, 251, 246;
@@ -76,7 +75,6 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --background: 222 35% 8%;
-    --background-rgb: 11, 15, 26;
     --foreground: 40 22% 92%;
     --card: 222 28% 12%;
     --card-rgb: 17, 21, 31;
@@ -130,7 +128,6 @@
 
 [data-theme="light"] {
   --background: 40 30% 96%;
-  --background-rgb: 248, 244, 236;
   --foreground: 220 20% 14%;
   --card: 40 33% 98%;
   --card-rgb: 253, 251, 246;
@@ -183,7 +180,6 @@
 
 [data-theme="dark"] {
   --background: 222 35% 8%;
-  --background-rgb: 11, 15, 26;
   --foreground: 40 22% 92%;
   --card: 222 28% 12%;
   --card-rgb: 17, 21, 31;
@@ -390,41 +386,6 @@ html {
     linear-gradient(rgba(var(--primary-rgb), 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--primary-rgb), 0.1) 1px, transparent 1px);
   background-size: 24px 24px;
-}
-
-/* ============================================================
-   REVIEWS MARQUEE — CSS only, server-rendered
-   ============================================================ */
-@keyframes marquee-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.reviews-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee-left 40s linear infinite;
-}
-
-.reviews-marquee:hover,
-.reviews-marquee:focus-within {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reviews-marquee {
-    animation: none;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .reviews-marquee > [aria-hidden="true"] {
-    display: none;
-  }
 }
 
 /* ============================================================

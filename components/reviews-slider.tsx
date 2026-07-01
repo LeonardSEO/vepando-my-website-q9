@@ -34,44 +34,17 @@ const reviews = [
 
 export default function ReviewsSlider() {
   return (
-    <div className="relative w-full">
-      <div className="relative overflow-hidden">
-        <div className="reviews-marquee">
-          {reviews.map((review) => (
-            <div key={review.id} className="flex-shrink-0 w-[320px] sm:w-[380px] md:w-[400px] px-3 py-2">
-              <ReviewCard review={review} />
-            </div>
-          ))}
-          {/* Duplicate set for the seamless loop; hidden from assistive tech and removed when reduced motion is on */}
-          <div aria-hidden="true" className="flex">
-            {reviews.map((review) => (
-              <div key={review.id} className="flex-shrink-0 w-[320px] sm:w-[380px] md:w-[400px] px-3 py-2">
-                <ReviewCard review={review} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div
-          className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-40 z-10 pointer-events-none"
-          style={{
-            background: `linear-gradient(to right, var(--background) 0%, rgba(var(--background-rgb), 0.6) 50%, transparent 100%)`,
-          }}
-        />
-        <div
-          className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-40 z-10 pointer-events-none"
-          style={{
-            background: `linear-gradient(to left, var(--background) 0%, rgba(var(--background-rgb), 0.6) 50%, transparent 100%)`,
-          }}
-        />
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {reviews.map((review) => (
+        <ReviewCard key={review.id} review={review} />
+      ))}
     </div>
   )
 }
 
 function ReviewCard({ review }: { review: (typeof reviews)[0] }) {
   return (
-    <Card className="glass-card h-[400px]">
+    <Card className="glass-card h-full">
       <CardContent className="p-6 h-full flex flex-col">
         <div className="flex items-start space-x-4 mb-4">
           <Image
