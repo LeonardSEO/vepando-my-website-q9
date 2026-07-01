@@ -1,0 +1,52 @@
+# VEPANDO - AI Agents voor MKB
+
+> VEPANDO bouwt binnen 30 dagen AI Agents die repetitieve taken automatiseren voor MKB-bedrijven in Nederland. Specialisaties: marketing automation, klantenservice chatbots en administratie-automatisering.
+
+VEPANDO is een Nederlandse AI automation specialist die zich richt op het MKB (Midden- en Kleinbedrijf). Wij ontwikkelen custom AI Agents die binnen 30 dagen live gaan voor een vaste, eenmalige prijs die de klant vooraf kent.
+
+## Onze AI Agent Services
+
+- [Marketing Agent](https://vepando.com/#diensten): AI-gestuurde marketingcampagnes die doelgroepen kiezen, advertenties schrijven en Google Ads optimaliseren voor hogere ROAS
+- [Klantenservice Agent](https://vepando.com/#diensten): 24/7 AI chatbot die klantvragen beantwoordt, tickets routeert en automatisch het CRM bijwerkt
+- [Administratie & Facturatie Agent](https://vepando.com/#diensten): AI die PDF-facturen leest, bedragen controleert en automatisch boekt in boekhoudsoftware
+
+## Werkwijze
+
+1. [Gratis strategiesessie](https://vepando.com/#werkwijze): analyse van de grootste tijdvreters, een concreet AI Blueprint en een vaste prijsopgave vooraf
+2. Bouwen en trainen van de agent op de processen en systemen van de klant
+3. Live binnen 30 dagen, met VEPANDO als blijvend aanspreekpunt
+
+## Klantresultaten & Reviews
+
+- [Klantbeoordelingen](https://vepando.com/#reviews): reviews van Nederlandse MKB-bedrijven
+- Lars (Co-Founder, Maatwerk Online): AI-agent gekoppeld aan Google Ads-campagnes bespaart uren per week en maakt campagnes slimmer
+- Niels (Eigenaar, Vloerenconcurrent.com): AI e-mail classifier bracht overzicht in een chaotische klantenservice-inbox en routeert vragen naar het juiste teamlid
+- Bas (Founder, Search Signals): VEPANDO bouwde de GenAI Tracker, een werkend en schaalbaar product
+
+## Contact & Adviesgesprek
+
+- [Gratis Strategiesessie](https://vepando.com/#booking): plan een gratis adviesgesprek met Leonard van Hemert (Founder & AI Architect)
+- Wat je krijgt: 1-op-1 analyse van tijdvreters, een concreet AI Blueprint en een vaste prijsopgave voordat je iets beslist
+- E-mail: info@vepando.com
+
+## Bedrijfsinformatie
+
+- **Oprichter**: Leonard van Hemert - AI Architect & Founder (https://www.linkedin.com/in/leonard-van-hemert/)
+- **Specialisatie**: AI Agents voor MKB-automatisering
+- **Locatie**: Nederland
+- **Levertijd**: 30 dagen van concept tot live AI Agent
+- **Prijsmodel**: vaste eenmalige prijs, vooraf bekend
+- **Track record**: 30+ AI Agents live bij Nederlandse MKB-bedrijven
+- **Bedrijf LinkedIn**: https://www.linkedin.com/company/vepando-ai/
+- **KvK**: 87313634
+
+## Veelgestelde vragen
+
+- Wat kost een AI Agent? Een vaste, eenmalige prijs die je hoort tijdens de gratis strategiesessie, voordat je iets beslist.
+- Hoe snel is mijn AI Agent live? Binnen 30 dagen na akkoord.
+- Heb ik technische kennis nodig? Nee, VEPANDO bouwt, traint en koppelt de agent.
+- Met welke systemen werkt een AI Agent samen? CRM, boekhoudsoftware, e-mail, Google Ads en interne systemen.
+
+## Technische Expertise
+
+VEPANDO gebruikt moderne AI-technologie om custom agents te bouwen die integreren met bestaande bedrijfssystemen zoals CRM, boekhoudsoftware, Google Ads en andere tools. De focus ligt op praktische automatisering die direct meetbare resultaten oplevert.

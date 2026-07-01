@@ -1,0 +1,438 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS — Classical-tech operations palette
+   Deep ink blue as the working colour, warm cream/graphite for
+   editorial trust, gold + iris reserved as small, deliberate accents.
+   All HSL values are unitless triplets so Tailwind's hsl(var(--x))
+   and opacity modifiers (bg-primary/90 etc.) resolve correctly.
+   ============================================================ */
+:root {
+  --radius: 0.625rem;
+  --background: 40 30% 96%;
+  --background-rgb: 248, 244, 236;
+  --foreground: 220 20% 14%;
+  --card: 40 33% 98%;
+  --card-rgb: 253, 251, 246;
+  --card-foreground: 220 20% 14%;
+  --muted-foreground: 220 10% 40%;
+  --primary: 215 55% 24%;
+  --primary-rgb: 26, 58, 99;
+  --primary-foreground: 40 30% 97%;
+  --secondary: 210 20% 92%;
+  --secondary-foreground: 220 20% 14%;
+  --destructive: 6 60% 45%;
+  --destructive-foreground: 40 30% 97%;
+  --popover: 40 33% 98%;
+  --popover-foreground: 220 20% 14%;
+  --border: 35 20% 85%;
+  --input: 35 20% 85%;
+  --ring: 215 55% 24%;
+  --accent: 210 25% 93%;
+  --accent-foreground: 220 20% 14%;
+
+  /* Restrained accents: gold for premium/audit moments, iris for AI-only touches */
+  --gold: 36 62% 34%;
+  --gold-rgb: 140, 97, 33;
+  --iris: 255 30% 45%;
+  --iris-rgb: 82, 80, 127;
+
+  /* Glass system */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-edge: rgba(0, 0, 0, 0.06);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --glass-shadow:
+    0 1px 2px rgba(15, 15, 30, 0.04),
+    0 8px 32px rgba(15, 15, 30, 0.1);
+  --glass-shadow-hover:
+    0 2px 4px rgba(15, 15, 30, 0.05),
+    0 14px 44px rgba(15, 15, 30, 0.14);
+
+  /* Card glass (lighter treatment for content surfaces) */
+  --card-glass-bg: rgba(255, 255, 255, 0.6);
+  --card-glass-border: rgba(255, 255, 255, 0.8);
+
+  /* Liquid glass (navbar) */
+  --lg-tint: rgba(255, 255, 255, 0.18);
+  --lg-rim-border: rgba(255, 255, 255, 0.55);
+  --lg-drop-alpha: 0.12;
+  --lg-specular: rgba(255, 255, 255, 0.95);
+  --lg-specular-side: rgba(255, 255, 255, 0.45);
+  --lg-bottom-edge: rgba(0, 0, 0, 0.08);
+  --lg-rim-brightness: 1.12;
+  --lg-sheen: rgba(255, 255, 255, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 222 35% 8%;
+    --background-rgb: 11, 15, 26;
+    --foreground: 40 22% 92%;
+    --card: 222 28% 12%;
+    --card-rgb: 17, 21, 31;
+    --card-foreground: 40 22% 92%;
+    --muted-foreground: 220 12% 65%;
+    --primary: 212 58% 42%;
+    --primary-rgb: 43, 105, 168;
+    --primary-foreground: 40 25% 96%;
+    --secondary: 222 22% 18%;
+    --secondary-foreground: 40 22% 92%;
+    --destructive: 6 55% 45%;
+    --destructive-foreground: 40 25% 96%;
+    --popover: 222 28% 12%;
+    --popover-foreground: 40 22% 92%;
+    --border: 222 20% 22%;
+    --input: 222 20% 22%;
+    --ring: 212 58% 50%;
+    --accent: 222 24% 16%;
+    --accent-foreground: 40 22% 92%;
+
+    --gold: 38 55% 62%;
+    --gold-rgb: 217, 167, 92;
+    --iris: 255 40% 68%;
+    --iris-rgb: 156, 151, 214;
+
+    --glass-bg: rgba(24, 24, 30, 0.5);
+    --glass-bg-strong: rgba(24, 24, 30, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-edge: rgba(0, 0, 0, 0.4);
+    --glass-highlight: rgba(255, 255, 255, 0.22);
+    --glass-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.3),
+      0 8px 32px rgba(0, 0, 0, 0.45);
+    --glass-shadow-hover:
+      0 2px 4px rgba(0, 0, 0, 0.35),
+      0 14px 44px rgba(0, 0, 0, 0.55);
+
+    --card-glass-bg: rgba(255, 255, 255, 0.05);
+    --card-glass-border: rgba(255, 255, 255, 0.1);
+
+    --lg-tint: rgba(20, 20, 26, 0.32);
+    --lg-rim-border: rgba(255, 255, 255, 0.16);
+    --lg-drop-alpha: 0.5;
+    --lg-specular: rgba(255, 255, 255, 0.28);
+    --lg-specular-side: rgba(255, 255, 255, 0.12);
+    --lg-bottom-edge: rgba(0, 0, 0, 0.5);
+    --lg-rim-brightness: 1.2;
+    --lg-sheen: rgba(255, 255, 255, 0.1);
+  }
+}
+
+[data-theme="light"] {
+  --background: 40 30% 96%;
+  --background-rgb: 248, 244, 236;
+  --foreground: 220 20% 14%;
+  --card: 40 33% 98%;
+  --card-rgb: 253, 251, 246;
+  --card-foreground: 220 20% 14%;
+  --muted-foreground: 220 10% 40%;
+  --primary: 215 55% 24%;
+  --primary-rgb: 26, 58, 99;
+  --primary-foreground: 40 30% 97%;
+  --secondary: 210 20% 92%;
+  --secondary-foreground: 220 20% 14%;
+  --destructive: 6 60% 45%;
+  --destructive-foreground: 40 30% 97%;
+  --popover: 40 33% 98%;
+  --popover-foreground: 220 20% 14%;
+  --border: 35 20% 85%;
+  --input: 35 20% 85%;
+  --ring: 215 55% 24%;
+  --accent: 210 25% 93%;
+  --accent-foreground: 220 20% 14%;
+
+  --gold: 36 62% 34%;
+  --gold-rgb: 140, 97, 33;
+  --iris: 255 30% 45%;
+  --iris-rgb: 82, 80, 127;
+
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-edge: rgba(0, 0, 0, 0.06);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --glass-shadow:
+    0 1px 2px rgba(15, 15, 30, 0.04),
+    0 8px 32px rgba(15, 15, 30, 0.1);
+  --glass-shadow-hover:
+    0 2px 4px rgba(15, 15, 30, 0.05),
+    0 14px 44px rgba(15, 15, 30, 0.14);
+
+  --card-glass-bg: rgba(255, 255, 255, 0.6);
+  --card-glass-border: rgba(255, 255, 255, 0.8);
+
+  --lg-tint: rgba(255, 255, 255, 0.18);
+  --lg-rim-border: rgba(255, 255, 255, 0.55);
+  --lg-drop-alpha: 0.12;
+  --lg-specular: rgba(255, 255, 255, 0.95);
+  --lg-specular-side: rgba(255, 255, 255, 0.45);
+  --lg-bottom-edge: rgba(0, 0, 0, 0.08);
+  --lg-rim-brightness: 1.12;
+  --lg-sheen: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] {
+  --background: 222 35% 8%;
+  --background-rgb: 11, 15, 26;
+  --foreground: 40 22% 92%;
+  --card: 222 28% 12%;
+  --card-rgb: 17, 21, 31;
+  --card-foreground: 40 22% 92%;
+  --muted-foreground: 220 12% 65%;
+  --primary: 212 58% 42%;
+  --primary-rgb: 43, 105, 168;
+  --primary-foreground: 40 25% 96%;
+  --secondary: 222 22% 18%;
+  --secondary-foreground: 40 22% 92%;
+  --destructive: 6 55% 45%;
+  --destructive-foreground: 40 25% 96%;
+  --popover: 222 28% 12%;
+  --popover-foreground: 40 22% 92%;
+  --border: 222 20% 22%;
+  --input: 222 20% 22%;
+  --ring: 212 58% 50%;
+  --accent: 222 24% 16%;
+  --accent-foreground: 40 22% 92%;
+
+  --gold: 38 55% 62%;
+  --gold-rgb: 217, 167, 92;
+  --iris: 255 40% 68%;
+  --iris-rgb: 156, 151, 214;
+
+  --glass-bg: rgba(24, 24, 30, 0.5);
+  --glass-bg-strong: rgba(24, 24, 30, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-edge: rgba(0, 0, 0, 0.4);
+  --glass-highlight: rgba(255, 255, 255, 0.22);
+  --glass-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.45);
+  --glass-shadow-hover:
+    0 2px 4px rgba(0, 0, 0, 0.35),
+    0 14px 44px rgba(0, 0, 0, 0.55);
+
+  --card-glass-bg: rgba(255, 255, 255, 0.05);
+  --card-glass-border: rgba(255, 255, 255, 0.1);
+
+  --lg-tint: rgba(20, 20, 26, 0.32);
+  --lg-rim-border: rgba(255, 255, 255, 0.16);
+  --lg-drop-alpha: 0.5;
+  --lg-specular: rgba(255, 255, 255, 0.28);
+  --lg-specular-side: rgba(255, 255, 255, 0.12);
+  --lg-bottom-edge: rgba(0, 0, 0, 0.5);
+  --lg-rim-brightness: 1.2;
+  --lg-sheen: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-family:
+      var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   LIQUID GLASS — navbar pill (Apple iOS 26 style)
+
+   Physics being mimicked:
+   - the center of real liquid glass is nearly clear (low blur,
+     high saturation), not frosted;
+   - light refracts at the curved rim, so the outer ~12px band
+     shows stronger blur + brightness (the "lens" edge);
+   - a thick specular rim highlight sits at the top, with the
+     backdrop color bleeding into the bottom of the rim.
+   ============================================================ */
+.liquid-glass-navbar {
+  position: relative;
+  isolation: isolate;
+  background: var(--lg-tint);
+  /* Fallback (Safari/Firefox have no url() backdrop refraction):
+     a light, clean glass blur so the pill still reads as glass */
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
+  /* Real Liquid Glass: a light frost combined with the SVG lens, which
+     magnifies and bends the backdrop inward at the curved rim — like Apple's
+     material. This declaration overrides the blur above where supported. */
+  -webkit-backdrop-filter: blur(5px) url(#liquid-lens) saturate(180%) brightness(var(--lg-rim-brightness));
+  backdrop-filter: blur(5px) url(#liquid-lens) saturate(180%) brightness(var(--lg-rim-brightness));
+  border: 1px solid var(--lg-rim-border);
+  box-shadow:
+    /* ambient drop shadow under the slab */
+    0 10px 30px rgba(0, 0, 0, var(--lg-drop-alpha)),
+    0 2px 6px rgba(0, 0, 0, calc(var(--lg-drop-alpha) * 0.5)),
+    /* bright specular streak along the top rim */
+    inset 0 1.5px 0.5px var(--lg-specular),
+    /* a second, brighter streak along the bottom rim (lens edge) */
+    inset 0 -1.5px 1px var(--lg-specular),
+    /* light catching the curved left/right edges */
+    inset 2px 0 3px -2px var(--lg-specular-side),
+    inset -2px 0 3px -2px var(--lg-specular-side);
+  transition: box-shadow 0.25s ease;
+}
+
+/* Specular sheen: a sharp highlight grazing the top edge and a softer
+   one along the bottom, the way light catches a curved glass slab */
+.liquid-glass-navbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--lg-sheen) 0%, transparent 36%),
+    linear-gradient(to top, var(--lg-sheen) 0%, transparent 26%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .liquid-glass-navbar {
+    background: var(--glass-bg-strong);
+  }
+}
+
+/* ============================================================
+   GLASS CARDS — content surfaces
+   ============================================================ */
+.glass-card {
+  background: var(--card-glass-bg);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid var(--card-glass-border);
+  border-radius: 0.75rem;
+  box-shadow: var(--glass-shadow);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.glass-card:hover {
+  box-shadow: var(--glass-shadow-hover);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-card {
+    background: hsl(var(--card));
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .glass-card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   BLUEPRINT GRID — quiet architectural backdrop, replaces the
+   old purple ambient orbs. A faint grid + one soft ink glow.
+   ============================================================ */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(var(--primary-rgb), 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--primary-rgb), 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+[data-theme="dark"] .blueprint-grid {
+  background-image:
+    linear-gradient(rgba(var(--primary-rgb), 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--primary-rgb), 0.14) 1px, transparent 1px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .blueprint-grid {
+    background-image:
+      linear-gradient(rgba(var(--primary-rgb), 0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--primary-rgb), 0.14) 1px, transparent 1px);
+  }
+}
+
+/* ============================================================
+   REVIEWS MARQUEE — CSS only, server-rendered
+   ============================================================ */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.reviews-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 40s linear infinite;
+}
+
+.reviews-marquee:hover,
+.reviews-marquee:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-marquee {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .reviews-marquee > [aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* ============================================================
+   BRAND LOGO — wordmark is dark, so render it white in dark mode
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand-logo {
+    filter: brightness(0) invert(1);
+  }
+}
+
+[data-theme="dark"] .brand-logo {
+  filter: brightness(0) invert(1);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--accent));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}

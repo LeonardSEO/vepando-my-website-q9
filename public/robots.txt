@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://vepando.com/sitemap.xml
+
+# Block API routes
+Disallow: /api/
+
+# Note: Old /kennisbank URLs are permanently redirected (308) to relevant sections
+
+# AI-friendly content
+# See llms.txt for AI-optimized content structure
