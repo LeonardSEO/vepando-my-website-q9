@@ -19,7 +19,7 @@ const services = [
     title: "De Marketing Agent",
     description:
       "Deze agent draait je complete marketingcampagnes. Hij kiest doelgroepen, schrijft advertenties, test wat werkt en optimaliseert je budget. Hij koppelt direct met Google Ads en levert rapporten die je ROAS (Return on Ad Spend) verhogen.",
-    illustration: "/images/dossier-01-marketing-agent.png",
+    illustration: "/images/dossier-01-marketing-agent.webp",
     illustrationAlt: "Patent-tekening van een doelmechaniek gekoppeld aan een oplopende resultatengrafiek",
     input: "Doelgroep, budget, Google Ads-account",
     output: "Advertenties + biedstrategie + rapportage",
@@ -31,7 +31,7 @@ const services = [
     title: "De Klantenservice Agent",
     description:
       "Deze agent is je 24/7 self-service helpdesk. Hij beantwoordt de meest gestelde vragen, stuurt complexe tickets direct naar de juiste persoon en vult automatisch je CRM aan. Het resultaat? 30% snellere responstijden en lagere supportkosten.",
-    illustration: "/images/dossier-02-klantenservice-agent.png",
+    illustration: "/images/dossier-02-klantenservice-agent.webp",
     illustrationAlt: "Patent-tekening van een mechanische sorteerwissel die post naar auto-antwoord of doorverwijzing stuurt",
     input: "Inkomend ticket of chatbericht",
     output: "Antwoord, of routing + CRM-update",
@@ -43,7 +43,7 @@ const services = [
     title: "De Administratie & Facturatie Agent",
     description:
       "Deze agent leest je PDF-facturen, controleert de bedragen en boekt alles direct in je boekhoudsoftware. Hij voorkomt invoerfouten en maakt je financiële afsluiting tot twee keer zo snel.",
-    illustration: "/images/dossier-03-administratie-facturatie.png",
+    illustration: "/images/dossier-03-administratie-facturatie.webp",
     illustrationAlt: "Patent-tekening van een factuur die via een stempelmechaniek in een boekhoudregister landt",
     input: "PDF-factuur",
     output: "Boeking in je boekhoudsoftware",
@@ -147,7 +147,7 @@ export default function VepandoLandingPage() {
 
             <div className="relative hidden aspect-[1448/1086] w-full overflow-hidden rounded-lg sm:block">
               <Image
-                src="/images/hero-agent-procesmachine.png"
+                src="/images/hero-agent-procesmachine.webp"
                 alt="Patent-tekening van een bedrijfsproces als machine: inbox, document, agent, menselijke controle en output"
                 fill
                 className="object-contain"
@@ -231,7 +231,7 @@ export default function VepandoLandingPage() {
 
             <div className="relative mb-10 sm:mb-12 aspect-[2172/724] w-full overflow-hidden rounded-lg">
               <Image
-                src="/images/werkwijze-workflow-blueprint.png"
+                src="/images/werkwijze-workflow-blueprint.webp"
                 alt="Patent-tekening van het 30-dagen proces in drie stappen: intake, bouwen en live"
                 fill
                 className="object-contain"
@@ -327,7 +327,7 @@ export default function VepandoLandingPage() {
 
       {/* Footer */}
       <footer
-        className="relative py-6 px-4 sm:px-6 lg:px-8 z-10 bg-card/30 backdrop-blur-sm border-t border-border/50"
+        className="relative py-6 px-4 sm:px-6 lg:px-8 z-10 bg-card border-t border-border"
         role="contentinfo"
       >
         <div className="max-w-4xl mx-auto">

@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Source_Serif_4 } from "next/font/google"
@@ -64,6 +64,10 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
+}
+
+export const viewport: Viewport = {
+  themeColor: "#1a3a63",
 }
 
 export default function RootLayout({

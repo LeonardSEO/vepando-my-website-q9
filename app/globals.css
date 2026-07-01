@@ -53,8 +53,8 @@
     0 14px 44px rgba(15, 15, 30, 0.14);
 
   /* Card glass (lighter treatment for content surfaces) */
-  --card-glass-bg: rgba(255, 255, 255, 0.6);
-  --card-glass-border: rgba(255, 255, 255, 0.8);
+  --card-glass-bg: rgba(253, 251, 246, 0.88);
+  --card-glass-border: rgba(220, 213, 200, 0.9);
 
   /* Editorial navbar surface — a quiet cream panel, not a glossy Apple
      "liquid glass" pill. Kept on the same mechanism (blur + SVG lens) but
@@ -114,8 +114,8 @@
       0 2px 4px rgba(0, 0, 0, 0.35),
       0 14px 44px rgba(0, 0, 0, 0.55);
 
-    --card-glass-bg: rgba(255, 255, 255, 0.05);
-    --card-glass-border: rgba(255, 255, 255, 0.1);
+    --card-glass-bg: rgba(17, 21, 31, 0.82);
+    --card-glass-border: rgba(43, 49, 64, 0.9);
 
     --lg-tint: rgba(20, 20, 26, 0.32);
     --lg-rim-border: rgba(255, 255, 255, 0.16);
@@ -168,8 +168,8 @@
     0 2px 4px rgba(15, 15, 30, 0.05),
     0 14px 44px rgba(15, 15, 30, 0.14);
 
-  --card-glass-bg: rgba(255, 255, 255, 0.6);
-  --card-glass-border: rgba(255, 255, 255, 0.8);
+  --card-glass-bg: rgba(253, 251, 246, 0.88);
+  --card-glass-border: rgba(220, 213, 200, 0.9);
 
   --lg-tint: rgba(253, 251, 246, 0.82);
   --lg-rim-border: rgba(224, 216, 200, 0.9);
@@ -221,8 +221,8 @@
     0 2px 4px rgba(0, 0, 0, 0.35),
     0 14px 44px rgba(0, 0, 0, 0.55);
 
-  --card-glass-bg: rgba(255, 255, 255, 0.05);
-  --card-glass-border: rgba(255, 255, 255, 0.1);
+  --card-glass-bg: rgba(17, 21, 31, 0.82);
+  --card-glass-border: rgba(43, 49, 64, 0.9);
 
   --lg-tint: rgba(20, 20, 26, 0.32);
   --lg-rim-border: rgba(255, 255, 255, 0.16);
@@ -324,12 +324,14 @@ html {
 }
 
 /* ============================================================
-   GLASS CARDS — content surfaces
+   CONTENT CARDS — a quiet, mostly-opaque surface, not a glossy
+   glass panel. Keeps the name (widely used across components)
+   but reads as editorial paper rather than SaaS "liquid glass".
    ============================================================ */
 .glass-card {
   background: var(--card-glass-bg);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+  backdrop-filter: blur(6px) saturate(110%);
   border: 1px solid var(--card-glass-border);
   border-radius: 0.75rem;
   box-shadow: var(--glass-shadow);
