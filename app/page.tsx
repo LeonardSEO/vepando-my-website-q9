@@ -11,6 +11,7 @@ import HeroCta from "@/components/hero-cta"
 import TerminalWindow from "@/components/terminal-window"
 import StatusBadge from "@/components/status-badge"
 import DossierCard from "@/components/dossier-card"
+import Reveal from "@/components/reveal"
 import { SERVICE_JSON_LD, FAQ_JSON_LD, FAQ_ITEMS } from "@/lib/structured-data"
 
 const services = [
@@ -161,7 +162,9 @@ export default function VepandoLandingPage() {
       </header>
 
       <main id="main-content">
-        <SocialProofSection />
+        <Reveal>
+          <SocialProofSection />
+        </Reveal>
 
         {/* Pain & Promise */}
         <section
@@ -170,14 +173,16 @@ export default function VepandoLandingPage() {
           aria-labelledby="problem-heading"
         >
           <div className="max-w-6xl mx-auto">
-            <h2
-              id="problem-heading"
-              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
-            >
-              Je bent geen ondernemer geworden <span className="text-primary">om data over te typen.</span>
-            </h2>
+            <Reveal>
+              <h2
+                id="problem-heading"
+                className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
+              >
+                Je bent geen ondernemer geworden <span className="text-primary">om data over te typen.</span>
+              </h2>
+            </Reveal>
 
-            <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
+            <Reveal delay={100} className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
               <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6 sm:mb-8">
                 Handmatige processen, eindeloze Excel-sheets en repetitieve klantvragen zijn de onzichtbare kostenpost
                 in je bedrijf. Ze stelen de tijd van jou en je team. Tijd die niet naar klanten of groei gaat.
@@ -189,7 +194,7 @@ export default function VepandoLandingPage() {
                 Wij bouwen een <strong className="text-foreground">AI Agent</strong>: een slimme, digitale collega die
                 we trainen op jouw processen en die direct voor je aan de slag gaat.
               </p>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -200,16 +205,20 @@ export default function VepandoLandingPage() {
           aria-labelledby="services-heading"
         >
           <div className="max-w-6xl mx-auto">
-            <h2
-              id="services-heading"
-              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
-            >
-              Drie AI Agents die we <span className="text-primary">onlangs hebben ingewerkt:</span>
-            </h2>
+            <Reveal>
+              <h2
+                id="services-heading"
+                className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
+              >
+                Drie AI Agents die we <span className="text-primary">onlangs hebben ingewerkt:</span>
+              </h2>
+            </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-              {services.map((service) => (
-                <DossierCard key={service.title} {...service} />
+              {services.map((service, i) => (
+                <Reveal key={service.title} delay={i * 100} className="h-full">
+                  <DossierCard {...service} />
+                </Reveal>
               ))}
             </div>
           </div>
@@ -222,14 +231,16 @@ export default function VepandoLandingPage() {
           aria-labelledby="process-heading"
         >
           <div className="max-w-6xl mx-auto">
-            <h2
-              id="process-heading"
-              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
-            >
-              Van eerste gesprek naar <span className="text-primary">werkende AI-collega.</span>
-            </h2>
+            <Reveal>
+              <h2
+                id="process-heading"
+                className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
+              >
+                Van eerste gesprek naar <span className="text-primary">werkende AI-collega.</span>
+              </h2>
+            </Reveal>
 
-            <div className="relative mb-10 sm:mb-12 aspect-[2172/724] w-full overflow-hidden rounded-lg">
+            <Reveal className="relative mb-10 sm:mb-12 aspect-[2172/724] w-full overflow-hidden rounded-lg">
               <Image
                 src="/images/werkwijze-workflow-blueprint.webp"
                 alt="Patent-tekening van het 30-dagen proces in drie stappen: intake, bouwen en live"
@@ -239,27 +250,29 @@ export default function VepandoLandingPage() {
                 quality={90}
                 sizes="(max-width: 1024px) 95vw, 1152px"
               />
-            </div>
+            </Reveal>
 
             <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 list-none">
-              {processSteps.map((step) => (
+              {processSteps.map((step, i) => (
                 <li key={step.step} className="h-full">
-                  <Card className="glass-card h-full rounded-2xl border-0">
-                    <CardContent className="p-6 sm:p-8 h-full flex flex-col">
-                      <span
-                        className="w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mb-4 sm:mb-6 text-lg"
-                        aria-hidden="true"
-                      >
-                        {step.step}
-                      </span>
-                      <h3 className="text-lg sm:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed flex-1">
-                        {step.description}
-                      </p>
-                    </CardContent>
-                  </Card>
+                  <Reveal delay={i * 100} className="h-full">
+                    <Card className="glass-card h-full rounded-2xl border-0">
+                      <CardContent className="p-6 sm:p-8 h-full flex flex-col">
+                        <span
+                          className="w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mb-4 sm:mb-6 text-lg"
+                          aria-hidden="true"
+                        >
+                          {step.step}
+                        </span>
+                        <h3 className="text-lg sm:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">
+                          {step.title}
+                        </h3>
+                        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed flex-1">
+                          {step.description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </Reveal>
                 </li>
               ))}
             </ol>
@@ -273,12 +286,14 @@ export default function VepandoLandingPage() {
           aria-labelledby="testimonials-heading"
         >
           <div className="max-w-6xl mx-auto">
-            <h2
-              id="testimonials-heading"
-              className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
-            >
-              Dit zeggen klanten <span className="text-primary">over hun AI-collega:</span>
-            </h2>
+            <Reveal>
+              <h2
+                id="testimonials-heading"
+                className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground text-center mb-12 sm:mb-16 leading-tight"
+              >
+                Dit zeggen klanten <span className="text-primary">over hun AI-collega:</span>
+              </h2>
+            </Reveal>
 
             <ReviewsSlider />
           </div>
@@ -291,32 +306,36 @@ export default function VepandoLandingPage() {
           aria-labelledby="faq-heading"
         >
           <div className="max-w-3xl mx-auto">
-            <h2
-              id="faq-heading"
-              className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground text-center mb-10 sm:mb-14 leading-tight"
-            >
-              Veelgestelde <span className="text-primary">vragen</span>
-            </h2>
+            <Reveal>
+              <h2
+                id="faq-heading"
+                className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground text-center mb-10 sm:mb-14 leading-tight"
+              >
+                Veelgestelde <span className="text-primary">vragen</span>
+              </h2>
+            </Reveal>
 
             <div className="space-y-4">
-              {FAQ_ITEMS.map((item) => (
-                <details key={item.question} className="glass-card rounded-2xl group">
-                  <summary className="cursor-pointer list-none p-5 sm:p-6 flex items-center justify-between gap-4 font-semibold text-card-foreground text-base sm:text-lg min-h-[48px]">
-                    {item.question}
-                    <svg
-                      className="w-5 h-5 flex-shrink-0 text-primary transition-transform duration-200 group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </summary>
-                  <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    {item.answer}
-                  </p>
-                </details>
+              {FAQ_ITEMS.map((item, i) => (
+                <Reveal key={item.question} delay={i * 80}>
+                  <details className="glass-card rounded-2xl group">
+                    <summary className="cursor-pointer list-none p-5 sm:p-6 flex items-center justify-between gap-4 font-semibold text-card-foreground text-base sm:text-lg min-h-[48px]">
+                      {item.question}
+                      <svg
+                        className="w-5 h-5 flex-shrink-0 text-primary transition-transform duration-200 group-open:rotate-180"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
+                    <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      {item.answer}
+                    </p>
+                  </details>
+                </Reveal>
               ))}
             </div>
           </div>

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star } from "lucide-react"
+import Reveal from "@/components/reveal"
 
 const reviews = [
   {
@@ -35,8 +36,10 @@ const reviews = [
 export default function ReviewsSlider() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {reviews.map((review) => (
-        <ReviewCard key={review.id} review={review} />
+      {reviews.map((review, i) => (
+        <Reveal key={review.id} delay={i * 100} className="h-full">
+          <ReviewCard review={review} />
+        </Reveal>
       ))}
     </div>
   )
