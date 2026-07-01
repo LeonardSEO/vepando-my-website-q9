@@ -389,6 +389,52 @@ html {
 }
 
 /* ============================================================
+   AGENT CONSOLE — a one-time "booting up" line-in on load, plus a
+   continuously blinking caret, so the panel reads as live activity
+   rather than a static screenshot. Kept subtle and looping only
+   where it costs nothing (opacity/transform), not full replays.
+   ============================================================ */
+@keyframes console-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.console-line {
+  animation: console-line-in 0.4s ease-out both;
+}
+
+@keyframes console-caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.console-caret {
+  animation: console-caret-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .console-line {
+    animation: none;
+  }
+  .console-caret {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ============================================================
    BRAND LOGO — wordmark is dark, so render it white in dark mode
    ============================================================ */
 @media (prefers-color-scheme: dark) {
