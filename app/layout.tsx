@@ -2,16 +2,16 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
-import { Fraunces } from "next/font/google"
+import { Source_Serif_4 } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
 
-const fraunces = Fraunces({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
-  axes: ["opsz", "SOFT", "WONK"],
+  weight: ["500", "600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -75,7 +75,7 @@ export default function RootLayout({
     <html
       lang="nl"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} ${fraunces.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${sourceSerif.variable}`}
     >
       <head>
         {/* Theme detection runs before paint to prevent a flash of wrong theme */}

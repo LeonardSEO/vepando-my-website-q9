@@ -56,19 +56,25 @@
   --card-glass-bg: rgba(255, 255, 255, 0.6);
   --card-glass-border: rgba(255, 255, 255, 0.8);
 
-  /* Liquid glass (navbar) */
-  --lg-tint: rgba(255, 255, 255, 0.18);
-  --lg-rim-border: rgba(255, 255, 255, 0.55);
-  --lg-drop-alpha: 0.12;
-  --lg-specular: rgba(255, 255, 255, 0.95);
-  --lg-specular-side: rgba(255, 255, 255, 0.45);
-  --lg-bottom-edge: rgba(0, 0, 0, 0.08);
-  --lg-rim-brightness: 1.12;
-  --lg-sheen: rgba(255, 255, 255, 0.5);
+  /* Editorial navbar surface — a quiet cream panel, not a glossy Apple
+     "liquid glass" pill. Kept on the same mechanism (blur + SVG lens) but
+     dialled down: warm opaque tint, thin border, soft shadow, minimal sheen. */
+  --lg-tint: rgba(253, 251, 246, 0.82);
+  --lg-rim-border: rgba(224, 216, 200, 0.9);
+  --lg-drop-alpha: 0.06;
+  --lg-specular: rgba(255, 255, 255, 0.25);
+  --lg-specular-side: rgba(255, 255, 255, 0.12);
+  --lg-bottom-edge: rgba(0, 0, 0, 0.04);
+  --lg-rim-brightness: 1;
+  --lg-sheen: rgba(255, 255, 255, 0.15);
 }
 
+/* Vepando is light-first: this only fires when no theme has been set yet
+   (e.g. before the inline bootstrap script runs) and is otherwise
+   overridden by the explicit [data-theme="light"] block below it. Kept as
+   scaffolding for a possible future manual toggle, not an active brand mode. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --background: 222 35% 8%;
     --background-rgb: 11, 15, 26;
     --foreground: 40 22% 92%;
@@ -165,14 +171,14 @@
   --card-glass-bg: rgba(255, 255, 255, 0.6);
   --card-glass-border: rgba(255, 255, 255, 0.8);
 
-  --lg-tint: rgba(255, 255, 255, 0.18);
-  --lg-rim-border: rgba(255, 255, 255, 0.55);
-  --lg-drop-alpha: 0.12;
-  --lg-specular: rgba(255, 255, 255, 0.95);
-  --lg-specular-side: rgba(255, 255, 255, 0.45);
-  --lg-bottom-edge: rgba(0, 0, 0, 0.08);
-  --lg-rim-brightness: 1.12;
-  --lg-sheen: rgba(255, 255, 255, 0.5);
+  --lg-tint: rgba(253, 251, 246, 0.82);
+  --lg-rim-border: rgba(224, 216, 200, 0.9);
+  --lg-drop-alpha: 0.06;
+  --lg-specular: rgba(255, 255, 255, 0.25);
+  --lg-specular-side: rgba(255, 255, 255, 0.12);
+  --lg-bottom-edge: rgba(0, 0, 0, 0.04);
+  --lg-rim-brightness: 1;
+  --lg-sheen: rgba(255, 255, 255, 0.15);
 }
 
 [data-theme="dark"] {
@@ -275,13 +281,13 @@ html {
   background: var(--lg-tint);
   /* Fallback (Safari/Firefox have no url() backdrop refraction):
      a light, clean glass blur so the pill still reads as glass */
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
-  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
   /* Real Liquid Glass: a light frost combined with the SVG lens, which
      magnifies and bends the backdrop inward at the curved rim — like Apple's
      material. This declaration overrides the blur above where supported. */
-  -webkit-backdrop-filter: blur(5px) url(#liquid-lens) saturate(180%) brightness(var(--lg-rim-brightness));
-  backdrop-filter: blur(5px) url(#liquid-lens) saturate(180%) brightness(var(--lg-rim-brightness));
+  -webkit-backdrop-filter: blur(5px) url(#liquid-lens) saturate(120%) brightness(var(--lg-rim-brightness));
+  backdrop-filter: blur(5px) url(#liquid-lens) saturate(120%) brightness(var(--lg-rim-brightness));
   border: 1px solid var(--lg-rim-border);
   box-shadow:
     /* ambient drop shadow under the slab */
@@ -373,6 +379,15 @@ html {
       linear-gradient(rgba(var(--primary-rgb), 0.14) 1px, transparent 1px),
       linear-gradient(90deg, rgba(var(--primary-rgb), 0.14) 1px, transparent 1px);
   }
+}
+
+/* Same grid, but unmasked and evenly visible — for small contained boxes
+   (illustration placeholders) rather than a full-page fading backdrop. */
+.blueprint-tile {
+  background-image:
+    linear-gradient(rgba(var(--primary-rgb), 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--primary-rgb), 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* ============================================================

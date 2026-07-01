@@ -16,10 +16,11 @@ import { SERVICE_JSON_LD, FAQ_JSON_LD, FAQ_ITEMS } from "@/lib/structured-data"
 const services = [
   {
     number: "01",
-    icon: "/images/ga4icon.png",
     title: "De Marketing Agent",
     description:
       "Deze agent draait je complete marketingcampagnes. Hij kiest doelgroepen, schrijft advertenties, test wat werkt en optimaliseert je budget. Hij koppelt direct met Google Ads en levert rapporten die je ROAS (Return on Ad Spend) verhogen.",
+    illustration: "/images/dossier-01-marketing-agent.png",
+    illustrationAlt: "Patent-tekening van een doelmechaniek gekoppeld aan een oplopende resultatengrafiek",
     input: "Doelgroep, budget, Google Ads-account",
     output: "Advertenties + biedstrategie + rapportage",
     humanCheck: "Wekelijkse review",
@@ -27,10 +28,11 @@ const services = [
   },
   {
     number: "02",
-    icon: "/images/chatboticon.png",
     title: "De Klantenservice Agent",
     description:
       "Deze agent is je 24/7 self-service helpdesk. Hij beantwoordt de meest gestelde vragen, stuurt complexe tickets direct naar de juiste persoon en vult automatisch je CRM aan. Het resultaat? 30% snellere responstijden en lagere supportkosten.",
+    illustration: "/images/dossier-02-klantenservice-agent.png",
+    illustrationAlt: "Patent-tekening van een mechanische sorteerwissel die post naar auto-antwoord of doorverwijzing stuurt",
     input: "Inkomend ticket of chatbericht",
     output: "Antwoord, of routing + CRM-update",
     humanCheck: "Escaleert bij twijfel",
@@ -38,10 +40,11 @@ const services = [
   },
   {
     number: "03",
-    icon: "/images/factuur-icon.png",
     title: "De Administratie & Facturatie Agent",
     description:
       "Deze agent leest je PDF-facturen, controleert de bedragen en boekt alles direct in je boekhoudsoftware. Hij voorkomt invoerfouten en maakt je financiële afsluiting tot twee keer zo snel.",
+    illustration: "/images/dossier-03-administratie-facturatie.png",
+    illustrationAlt: "Patent-tekening van een factuur die via een stempelmechaniek in een boekhoudregister landt",
     input: "PDF-factuur",
     output: "Boeking in je boekhoudsoftware",
     humanCheck: "Steekproefcontrole",
@@ -99,46 +102,61 @@ export default function VepandoLandingPage() {
       <div className="fixed inset-0 z-0 pointer-events-none blueprint-grid" aria-hidden="true" />
 
       {/* Hero */}
-      <header className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 z-10 pt-20 sm:pt-0">
+      <header className="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 lg:px-8 z-10 pt-24 sm:pt-20 lg:pt-0">
         <HeroTrail />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-foreground leading-tight mb-6 sm:mb-8">
-            Huur een AI-collega die 24/7 voor je werkt. <span className="text-primary">Zonder salaris.</span>
-          </h1>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center max-w-6xl mx-auto">
+          <div className="text-center lg:text-left">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight mb-6 sm:mb-8">
+              Huur een AI-collega die 24/7 voor je werkt. <span className="text-primary">Zonder salaris.</span>
+            </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
-            Wij bouwen de AI Agent die jouw meest saaie, repetitieve werk overneemt. Binnen 30 dagen live. Je weet
-            vooraf precies wat het kost. Zonder technisch gedoe.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-8 sm:mb-10" aria-hidden="false">
-            <StatusBadge label="Live binnen 30 dagen" icon={Clock} />
-            <StatusBadge label="Menselijke controle" icon={ShieldCheck} />
-            <StatusBadge label="AVG-bewust" icon={FileCheck2} />
-          </div>
-
-          <div className="px-4 sm:px-0">
-            <HeroCta />
-
-            <p className="text-sm text-muted-foreground px-4 sm:px-0 mb-10 sm:mb-12">
-              Plan een gratis strategiesessie &amp; ontvang een AI-plan op maat.
+            <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed px-4 sm:px-0 lg:px-0">
+              Wij bouwen de AI Agent die jouw meest saaie, repetitieve werk overneemt. Binnen 30 dagen live. Je weet
+              vooraf precies wat het kost. Zonder technisch gedoe.
             </p>
+
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-8 sm:mb-10">
+              <StatusBadge label="Live binnen 30 dagen" icon={Clock} />
+              <StatusBadge label="Menselijke controle" icon={ShieldCheck} />
+              <StatusBadge label="AVG-bewust" icon={FileCheck2} />
+            </div>
+
+            <div className="px-4 sm:px-0 lg:px-0">
+              <HeroCta />
+
+              <p className="text-sm text-muted-foreground px-4 sm:px-0 lg:px-0">
+                Plan een gratis strategiesessie &amp; ontvang een AI-plan op maat.
+              </p>
+            </div>
           </div>
 
-          <TerminalWindow
-            className="max-w-xl mx-auto text-left"
-            title="vepando — agent — zsh"
-            lines={[
-              { type: "prompt", text: "$ vepando agent status" },
-              { type: "success", text: "✓ Marketing Agent — actief" },
-              { type: "success", text: "✓ Klantenservice Agent — actief" },
-              { type: "output", text: "→ Nieuwe aanvraag verwerkt (offerte #1042)" },
-              { type: "output", text: "→ Conceptmail klaar voor controle" },
-              { type: "accent", text: "Menselijke check: vereist" },
-            ]}
-            statusLine="Live binnen 30 dagen · vaste prijs vooraf"
-          />
+          <div className="flex flex-col gap-5 max-w-xl mx-auto lg:mx-0 w-full">
+            <TerminalWindow
+              className="w-full text-left"
+              title="Agent console — Vepando"
+              lines={[
+                { type: "success", text: "✓ Marketing Agent — actief" },
+                { type: "success", text: "✓ Klantenservice Agent — actief" },
+                { type: "output", text: "→ Nieuwe aanvraag verwerkt (offerte #1042)" },
+                { type: "output", text: "→ Conceptmail klaar voor controle" },
+                { type: "accent", text: "Menselijke check: vereist" },
+              ]}
+              statusLine="Live binnen 30 dagen · vaste prijs vooraf"
+            />
+
+            <div className="relative hidden aspect-[1448/1086] w-full overflow-hidden rounded-lg sm:block">
+              <Image
+                src="/images/hero-agent-procesmachine.png"
+                alt="Patent-tekening van een bedrijfsproces als machine: inbox, document, agent, menselijke controle en output"
+                fill
+                className="object-contain"
+                loading="lazy"
+                quality={90}
+                sizes="(max-width: 1024px) 90vw, 560px"
+              />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -210,6 +228,18 @@ export default function VepandoLandingPage() {
             >
               Van eerste gesprek naar <span className="text-primary">werkende AI-collega.</span>
             </h2>
+
+            <div className="relative mb-10 sm:mb-12 aspect-[2172/724] w-full overflow-hidden rounded-lg">
+              <Image
+                src="/images/werkwijze-workflow-blueprint.png"
+                alt="Patent-tekening van het 30-dagen proces in drie stappen: intake, bouwen en live"
+                fill
+                className="object-contain"
+                loading="lazy"
+                quality={90}
+                sizes="(max-width: 1024px) 95vw, 1152px"
+              />
+            </div>
 
             <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 list-none">
               {processSteps.map((step) => (

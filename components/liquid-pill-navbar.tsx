@@ -14,13 +14,13 @@ export default function LiquidPillNavbar() {
       {/* The #liquid-lens SVG filter that drives the refraction lives in
           app/layout.tsx (server-rendered) to avoid a hydration mismatch. */}
       <nav
-        className="liquid-glass-navbar relative h-[56px] sm:h-[64px] rounded-full flex items-center justify-between pl-5 pr-2 sm:pl-7 sm:pr-2.5"
+        className="liquid-glass-navbar relative h-[56px] sm:h-[64px] rounded-xl flex items-center justify-between pl-5 pr-2 sm:pl-7 sm:pr-2.5"
         aria-label="Hoofdmenu"
       >
         <button
           onClick={scrollToTop}
           aria-label="Ga naar bovenkant van pagina"
-          className="relative h-[36px] sm:h-[40px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-full transition-opacity duration-200 hover:opacity-80"
+          className="relative h-[36px] sm:h-[40px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md transition-opacity duration-200 hover:opacity-80"
         >
           <span className="relative block h-[26px] w-[104px] sm:h-[30px] sm:w-[120px]">
             <Image
@@ -49,7 +49,7 @@ export default function LiquidPillNavbar() {
 
         <a
           href="#booking"
-          className="relative inline-flex items-center gap-2 px-5 sm:px-7 h-[42px] sm:h-[46px] rounded-full text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200 active:scale-[0.97]"
+          className="relative inline-flex items-center gap-2 px-5 sm:px-7 h-[42px] sm:h-[46px] rounded-lg text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.97]"
           onClick={() => analytics.navCtaClick()}
         >
           <span>Adviesgesprek</span>
