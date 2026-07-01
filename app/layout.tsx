@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Huur een AI-collega die 24/7 voor je werkt. Binnen 30 dagen live, voor een vaste prijs die je vooraf kent.",
     images: [
       {
-        url: "/images/vepando-logo-main.png",
+        url: "/images/vepando-og-image.png",
         width: 1200,
         height: 630,
         alt: "VEPANDO - AI Agents voor MKB",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "VEPANDO - AI Agents voor MKB",
     description:
       "Huur een AI-collega die 24/7 voor je werkt. Binnen 30 dagen live, voor een vaste prijs die je vooraf kent.",
-    images: ["/images/vepando-logo-main.png"],
+    images: ["/images/vepando-og-image.png"],
   },
   robots: {
     index: true,
