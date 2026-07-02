@@ -38,14 +38,14 @@ export default function BookingSection() {
                 <CardContent className="p-4 sm:p-6">
                   <div className="flex items-center space-x-3 sm:space-x-4">
                     <Image
-                      src="/images/leonard-van-hemert.png"
+                      src="/images/leonard-van-hemert.webp"
                       alt="Leonard van Hemert, Founder & AI Architect van VEPANDO"
-                      width={80}
-                      height={80}
-                      className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full border-4 border-background shadow-lg flex-shrink-0 object-cover"
+                      width={96}
+                      height={96}
+                      className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full border-4 border-background shadow-lg flex-shrink-0 object-cover"
                       loading="lazy"
                       quality={90}
-                      sizes="(max-width: 640px) 48px, (max-width: 1024px) 64px, 80px"
+                      sizes="(max-width: 640px) 64px, (max-width: 1024px) 80px, 96px"
                     />
                     <div className="min-w-0">
                       <a
@@ -67,6 +67,16 @@ export default function BookingSection() {
                       </p>
                     </div>
                   </div>
+
+                  <p className="text-xs sm:text-sm text-muted-foreground italic leading-relaxed mt-4 pt-4 border-t border-border">
+                    &ldquo;AI is voor mij geen doel op zich, maar een praktisch hulpmiddel: repetitief werk
+                    automatiseren binnen veilige, AVG-conforme kaders — zonder onnodige complexiteit.&rdquo;
+                  </p>
+
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-2">
+                    Naast Vepando werkt Leonard part-time als AI Consultant bij Symbis, waar hij dezelfde praktische
+                    aanpak toepast binnen Microsoft- en Azure-omgevingen.
+                  </p>
                 </CardContent>
               </Card>
 

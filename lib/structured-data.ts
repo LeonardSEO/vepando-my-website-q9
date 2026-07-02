@@ -93,9 +93,14 @@ export const FAQ_ITEMS = [
       "Nee. Wij bouwen, trainen en koppelen de agent. Jij vertelt ons hoe je werkt; wij zorgen dat de agent dat werk overneemt. Na oplevering blijven wij je aanspreekpunt.",
   },
   {
-    question: "Met welke systemen werkt een AI Agent samen?",
+    question: "Wat voor AI Agents kunnen jullie bouwen?",
     answer:
-      "Met de tools die je al gebruikt: je CRM, boekhoudsoftware, e-mail, Google Ads en interne systemen. De agent past zich aan jouw werkwijze aan, niet andersom.",
+      "Praktisch alles wat herhaalbaar en regelgebonden is: van marketing en klantenservice tot administratie, planning en rapportages. De drie agents hierboven zijn voorbeelden. In de strategiesessie bepalen we samen welk proces bij jou de meeste tijd kost, en daar bouwen we een agent voor op maat.",
+  },
+  {
+    question: "Met welke tools werkt een AI Agent?",
+    answer:
+      "Met de tools die je al gebruikt: denk aan Google Sheets, Asana, e-mail, je CRM of boekhoudsoftware. Voor de AI zelf gebruiken we bekende modellen zoals ChatGPT en Claude, vaak gekoppeld via n8n. Jij hoeft niets te installeren; wij zorgen dat het achter de schermen samenwerkt.",
   },
 ] as const
 

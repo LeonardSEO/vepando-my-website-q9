@@ -132,7 +132,7 @@ export default function VepandoLandingPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-5 max-w-xl mx-auto lg:mx-0 w-full">
+          <div className="max-w-xl mx-auto lg:mx-0 w-full">
             <TerminalWindow
               className="w-full text-left"
               title="Agent console — Vepando"
@@ -145,18 +145,6 @@ export default function VepandoLandingPage() {
               ]}
               statusLine="Live binnen 30 dagen · vaste prijs vooraf"
             />
-
-            <div className="relative hidden aspect-[1448/1086] w-full overflow-hidden rounded-lg sm:block">
-              <Image
-                src="/images/hero-agent-procesmachine.webp"
-                alt="Patent-tekening van een bedrijfsproces als machine: inbox, document, agent, menselijke controle en output"
-                fill
-                className="object-contain"
-                loading="lazy"
-                quality={90}
-                sizes="(max-width: 1024px) 90vw, 560px"
-              />
-            </div>
           </div>
         </div>
       </header>
@@ -212,6 +200,18 @@ export default function VepandoLandingPage() {
               >
                 Drie AI Agents die we <span className="text-primary">onlangs hebben ingewerkt:</span>
               </h2>
+            </Reveal>
+
+            <Reveal className="relative mb-10 sm:mb-12 aspect-[1448/1086] max-w-2xl mx-auto w-full overflow-hidden rounded-lg">
+              <Image
+                src="/images/hero-agent-procesmachine.webp"
+                alt="Patent-tekening van een bedrijfsproces als machine: inbox, document, agent, menselijke controle en output"
+                fill
+                className="object-contain"
+                loading="lazy"
+                quality={90}
+                sizes="(max-width: 1024px) 90vw, 672px"
+              />
             </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
