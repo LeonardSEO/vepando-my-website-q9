@@ -11,8 +11,8 @@ export default function NotFound() {
     <div className="min-h-screen relative overflow-hidden bg-[#212121]">
       {/* Animated Background Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-0 right-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-gradient-to-br from-[#1A3A63]/20 via-[#B98A45]/15 to-[#2B69A8]/20 rounded-full blur-3xl animate-pulse transform translate-x-1/3 -translate-y-1/4"></div>
-        <div className="absolute bottom-0 left-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-tr from-[#2B69A8]/15 via-[#1A3A63]/20 to-[#B98A45]/15 rounded-full blur-3xl animate-pulse transform -translate-x-1/3 translate-y-1/4"></div>
+        <div className="absolute top-0 right-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-gradient-to-br from-[#1A3A63]/20 via-[#8C6121]/15 to-[#2B69A8]/20 rounded-full blur-3xl animate-pulse transform translate-x-1/3 -translate-y-1/4"></div>
+        <div className="absolute bottom-0 left-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-tr from-[#2B69A8]/15 via-[#1A3A63]/20 to-[#8C6121]/15 rounded-full blur-3xl animate-pulse transform -translate-x-1/3 translate-y-1/4"></div>
       </div>
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -34,14 +34,14 @@ export default function NotFound() {
           {/* 404 Display */}
           <div className="mb-8">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="text-8xl sm:text-9xl font-bold bg-gradient-to-r from-[#1A3A63] to-[#B98A45] bg-clip-text text-transparent">
+              <div className="text-8xl sm:text-9xl font-bold bg-gradient-to-r from-[#1A3A63] to-[#8C6121] bg-clip-text text-transparent">
                 4
               </div>
               <div className="relative">
                 <Bot className="w-16 h-16 sm:w-20 sm:h-20 text-red-500 animate-bounce" />
                 <AlertTriangle className="w-6 h-6 text-yellow-400 absolute -top-2 -right-2 animate-pulse" />
               </div>
-              <div className="text-8xl sm:text-9xl font-bold bg-gradient-to-r from-[#B98A45] to-[#1A3A63] bg-clip-text text-transparent">
+              <div className="text-8xl sm:text-9xl font-bold bg-gradient-to-r from-[#8C6121] to-[#1A3A63] bg-clip-text text-transparent">
                 4
               </div>
             </div>

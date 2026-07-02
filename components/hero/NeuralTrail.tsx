@@ -25,8 +25,8 @@ type NeuralTrailProps = {
   containerRef: RefObject<HTMLElement | null>
 }
 
-const BRAND_HEX = "#B98A45"
-const BRAND_RGB = "185, 138, 69"
+const BRAND_HEX = "#8C6121"
+const BRAND_RGB = "140, 97, 33"
 const MAX_NODES = 80
 const MOUSE_EMIT_INTERVAL_MS = 24
 const TOUCH_EMIT_INTERVAL_MS = 40
