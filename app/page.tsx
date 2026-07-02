@@ -132,18 +132,20 @@ export default function VepandoLandingPage() {
             </div>
           </div>
 
-          <div className="max-w-xl mx-auto lg:mx-0 w-full">
+          <div className="mx-auto w-full max-w-2xl lg:mx-0">
             <TerminalWindow
               className="w-full text-left"
-              title="Agent console — Vepando"
-              lines={[
-                { type: "success", text: "✓ Marketing Agent — actief" },
-                { type: "success", text: "✓ Klantenservice Agent — actief" },
-                { type: "output", text: "→ Nieuwe aanvraag verwerkt (offerte #1042)" },
-                { type: "output", text: "→ Conceptmail klaar voor controle" },
-                { type: "accent", text: "Menselijke check: vereist" },
-              ]}
-              statusLine="Live binnen 30 dagen · vaste prijs vooraf"
+              windowTitle="leonard — vepando agent — live"
+              agentTitle="Vepando Agent"
+              agentSubtitle="3 agents actief · Live binnen 30 dagen"
+              path="/vepando/agents"
+              banner={{
+                title: "Nieuwe aanvraag verwerkt.",
+                body: "Offerte #1042 is automatisch opgesteld door de Marketing Agent en staat klaar voor jouw controle.",
+              }}
+              hint="+2 meer · /status"
+              prompt="Klaar voor je eigen AI-collega?"
+              statusLine="menselijke controle aan · altijd actief"
             />
           </div>
         </div>
@@ -183,6 +185,18 @@ export default function VepandoLandingPage() {
                 we trainen op jouw processen en die direct voor je aan de slag gaat.
               </p>
             </Reveal>
+
+            <Reveal delay={150} className="relative mt-10 sm:mt-12 aspect-[1448/1086] max-w-2xl mx-auto w-full overflow-hidden rounded-lg">
+              <Image
+                src="/images/hero-agent-procesmachine.webp"
+                alt="Patent-tekening van een bedrijfsproces als machine: inbox, document, agent, menselijke controle en output"
+                fill
+                className="object-contain"
+                loading="lazy"
+                quality={90}
+                sizes="(max-width: 1024px) 90vw, 672px"
+              />
+            </Reveal>
           </div>
         </section>
 
@@ -200,18 +214,6 @@ export default function VepandoLandingPage() {
               >
                 Drie AI Agents die we <span className="text-primary">onlangs hebben ingewerkt:</span>
               </h2>
-            </Reveal>
-
-            <Reveal className="relative mb-10 sm:mb-12 aspect-[1448/1086] max-w-2xl mx-auto w-full overflow-hidden rounded-lg">
-              <Image
-                src="/images/hero-agent-procesmachine.webp"
-                alt="Patent-tekening van een bedrijfsproces als machine: inbox, document, agent, menselijke controle en output"
-                fill
-                className="object-contain"
-                loading="lazy"
-                quality={90}
-                sizes="(max-width: 1024px) 90vw, 672px"
-              />
             </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
