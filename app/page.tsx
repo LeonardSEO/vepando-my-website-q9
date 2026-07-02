@@ -144,8 +144,9 @@ export default function VepandoLandingPage() {
                 body: "Offerte #1042 is automatisch opgesteld door de Marketing Agent en staat klaar voor jouw controle.",
               }}
               hint="+2 meer · /status"
+              infoText="Menselijke controle staat aan: de agent voert acties uit die veilig en herhaalbaar zijn, en legt twijfelgevallen aan jou voor."
               prompt="Klaar voor je eigen AI-collega?"
-              statusLine="menselijke controle aan · altijd actief"
+              statusLine="menselijke controle aan — shift+tab doet hier bewust niets"
             />
           </div>
         </div>

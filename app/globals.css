@@ -394,6 +394,15 @@ html {
    rather than a static screenshot. Kept subtle and looping only
    where it costs nothing (opacity/transform), not full replays.
    ============================================================ */
+
+/* Deliberately NOT --font-mono (Geist Mono reads too clean/designed).
+   This is the actual system terminal stack — SF Mono on macOS, the same
+   font real terminal apps use — so the console reads as a real tool. */
+.terminal-font {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+}
+
 @keyframes console-line-in {
   from {
     opacity: 0;
@@ -409,28 +418,9 @@ html {
   animation: console-line-in 0.4s ease-out both;
 }
 
-@keyframes console-caret-blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-
-.console-caret {
-  animation: console-caret-blink 1s step-end infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .console-line {
     animation: none;
-  }
-  .console-caret {
-    animation: none;
-    opacity: 1;
   }
 }
 
