@@ -347,8 +347,11 @@ export default function NeuralTrail({
       }
 
       for (const node of activeTrailNodes) {
-        const life = 1 - (timestamp - node.createdAt) / node.ttl
-        renderNodes.push({ x: node.x, y: node.y, size: node.size, alpha: life * 0.9 })
+        const age = timestamp - node.createdAt
+        const life = 1 - age / node.ttl
+        // Short ease-in on spawn so nodes bloom instead of popping in at full alpha
+        const spawn = Math.min(age / 180, 1)
+        renderNodes.push({ x: node.x, y: node.y, size: node.size, alpha: spawn * life * 0.9 })
       }
 
       context.save()
@@ -367,8 +370,10 @@ export default function NeuralTrail({
             continue
           }
 
-          const distanceAlpha = 1 - distance / connectionRadius
-          const alpha = distanceAlpha * Math.min(source.alpha, target.alpha) * 0.55
+          // Quadratic falloff: near lines stay crisp, stretched lines fade
+          // out early instead of lingering as faint clutter
+          const distanceAlpha = (1 - distance / connectionRadius) ** 2
+          const alpha = distanceAlpha * Math.min(source.alpha, target.alpha) * 0.6
 
           if (alpha <= 0.01) {
             continue

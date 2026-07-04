@@ -31,9 +31,9 @@ export default function DossierCard({
   keywords,
 }: DossierCardProps) {
   return (
-    <article className="group relative h-full rounded-xl border border-border bg-card/80 p-6 sm:p-7 transition-colors duration-300 hover:border-primary/40">
-      <span className="pointer-events-none absolute left-4 top-4 h-3 w-3 border-l border-t border-primary/30" aria-hidden="true" />
-      <span className="pointer-events-none absolute bottom-4 right-4 h-3 w-3 border-b border-r border-primary/30" aria-hidden="true" />
+    <article className="group relative h-full rounded-xl border border-border bg-card/80 p-6 sm:p-7 transition-[border-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-primary/40 hover:shadow-[var(--glass-shadow-hover)] motion-safe:hover:-translate-y-1">
+      <span className="pointer-events-none absolute left-4 top-4 h-3 w-3 border-l border-t border-primary/30 transition-colors duration-300 group-hover:border-primary/60" aria-hidden="true" />
+      <span className="pointer-events-none absolute bottom-4 right-4 h-3 w-3 border-b border-r border-primary/30 transition-colors duration-300 group-hover:border-primary/60" aria-hidden="true" />
 
       <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
         Dossier {number}
@@ -44,7 +44,7 @@ export default function DossierCard({
           src={illustration}
           alt={illustrationAlt}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover:scale-[1.03]"
           loading="lazy"
           quality={90}
           sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 360px"

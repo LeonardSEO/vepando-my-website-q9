@@ -48,7 +48,7 @@ export default function SocialProofSection() {
           {companies.map((company) => (
             <div
               key={company.name}
-              className="group opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+              className="group opacity-70 grayscale transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:opacity-100 hover:grayscale-0 motion-safe:hover:scale-[1.04]"
             >
               <div className="relative flex items-center justify-center h-12 w-40 sm:min-w-[120px]">
                 <Image

@@ -262,7 +262,7 @@ export default function VepandoLandingPage() {
                     <Card className="glass-card h-full rounded-2xl border-0">
                       <CardContent className="p-6 sm:p-8 h-full flex flex-col">
                         <span
-                          className="w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mb-4 sm:mb-6 text-lg"
+                          className="w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mb-4 sm:mb-6 text-lg shadow-md shadow-primary/25"
                           aria-hidden="true"
                         >
                           {step.step}
@@ -322,10 +322,10 @@ export default function VepandoLandingPage() {
               {FAQ_ITEMS.map((item, i) => (
                 <Reveal key={item.question} delay={i * 80}>
                   <details className="glass-card rounded-2xl group">
-                    <summary className="cursor-pointer list-none p-5 sm:p-6 flex items-center justify-between gap-4 font-semibold text-card-foreground text-base sm:text-lg min-h-[48px]">
+                    <summary className="faq-summary cursor-pointer list-none p-5 sm:p-6 flex items-center justify-between gap-4 font-semibold text-card-foreground text-base sm:text-lg min-h-[48px]">
                       {item.question}
                       <svg
-                        className="w-5 h-5 flex-shrink-0 text-primary transition-transform duration-200 group-open:rotate-180"
+                        className="w-5 h-5 flex-shrink-0 text-primary transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-open:rotate-180"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -334,7 +334,7 @@ export default function VepandoLandingPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </summary>
-                    <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    <p className="faq-answer px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-muted-foreground leading-relaxed">
                       {item.answer}
                     </p>
                   </details>

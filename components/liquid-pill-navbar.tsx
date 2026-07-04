@@ -36,24 +36,30 @@ export default function LiquidPillNavbar() {
         </button>
 
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-foreground/80">
-          <a href="#diensten" className="hover:text-primary transition-colors duration-200 py-2">
+          <a href="#diensten" className="nav-link hover:text-primary transition-colors duration-200 py-2">
             Diensten
           </a>
-          <a href="#werkwijze" className="hover:text-primary transition-colors duration-200 py-2">
+          <a href="#werkwijze" className="nav-link hover:text-primary transition-colors duration-200 py-2">
             Werkwijze
           </a>
-          <a href="#reviews" className="hover:text-primary transition-colors duration-200 py-2">
+          <a href="#reviews" className="nav-link hover:text-primary transition-colors duration-200 py-2">
             Reviews
           </a>
         </div>
 
         <a
           href="#booking"
-          className="relative inline-flex items-center gap-2 px-5 sm:px-7 h-[42px] sm:h-[46px] rounded-lg text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.97]"
+          className="group relative inline-flex items-center gap-2 px-5 sm:px-7 h-[42px] sm:h-[46px] rounded-lg text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           onClick={() => analytics.navCtaClick()}
         >
           <span>Adviesgesprek</span>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg
+            className="w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover:translate-x-0.5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </a>

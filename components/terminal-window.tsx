@@ -57,7 +57,7 @@ export default function TerminalWindow({
       <div className="terminal-font px-5 py-5 text-[13px] leading-relaxed sm:px-6 sm:py-6">
         <div className="console-line mb-5 flex items-start gap-3">
           <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg">
-            <Image src="/android-chrome-192x192.png" alt="" fill className="object-cover" />
+            <Image src="/android-chrome-192x192.png" alt="" fill sizes="40px" className="object-cover" />
           </div>
           <div className="min-w-0 pt-0.5">
             <p className="text-[15px] font-semibold text-white">{agentTitle}</p>

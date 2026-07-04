@@ -66,6 +66,12 @@
   --lg-bottom-edge: rgba(0, 0, 0, 0.04);
   --lg-rim-brightness: 1;
   --lg-sheen: rgba(255, 255, 255, 0.15);
+
+  /* Motion system — one easing curve and duration scale shared by all
+     micro-interactions, so hovers, reveals and accordions feel related. */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-quick: 200ms;
+  --duration-smooth: 350ms;
 }
 
 /* Vepando is light-first: this only fires when no theme has been set yet
@@ -252,12 +258,28 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor targets land clear of the fixed navbar pill */
+  scroll-padding-top: 96px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+}
+
+::selection {
+  background: rgba(var(--primary-rgb), 0.18);
+  color: hsl(var(--foreground));
+}
+
+/* Single visible focus treatment for links and summaries that don't
+   already carry a component-level focus ring */
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* ============================================================
@@ -332,12 +354,15 @@ html {
   border-radius: 0.75rem;
   box-shadow: var(--glass-shadow);
   transition:
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
+    box-shadow var(--duration-smooth) var(--ease-premium),
+    transform var(--duration-smooth) var(--ease-premium),
+    border-color var(--duration-smooth) var(--ease-premium);
 }
 
 .glass-card:hover {
   box-shadow: var(--glass-shadow-hover);
+  transform: translateY(-2px);
+  border-color: rgba(var(--primary-rgb), 0.22);
 }
 
 @supports not (backdrop-filter: blur(1px)) {
@@ -349,6 +374,79 @@ html {
 @media (hover: none) and (pointer: coarse) {
   .glass-card:hover {
     transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-card,
+  .glass-card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   NAV LINKS — hairline underline that draws in from the left on
+   hover/focus and retreats to the right on leave
+   ============================================================ */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 1px;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-smooth) var(--ease-premium);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   FAQ — answers fade-slide in when a <details> opens; the summary
+   row gives a quiet colour response on hover
+   ============================================================ */
+@keyframes faq-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+details[open] > .faq-answer {
+  animation: faq-answer-in var(--duration-smooth) var(--ease-premium) both;
+}
+
+.faq-summary {
+  transition: color var(--duration-quick) ease;
+}
+
+.faq-summary:hover {
+  color: hsl(var(--primary));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details[open] > .faq-answer {
+    animation: none;
   }
 }
 

@@ -13,7 +13,8 @@ interface RevealProps {
  * Fades and lifts its children in once, the moment they enter the
  * viewport — no scroll-jacking, no pinned sections, no re-triggering on
  * scroll-up. One IntersectionObserver per instance, disconnected after
- * the first hit, and skipped entirely under prefers-reduced-motion.
+ * the first hit; under prefers-reduced-motion the CSS overrides keep
+ * content permanently visible and static.
  */
 export default function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -22,11 +23,6 @@ export default function Reveal({ children, className, delay = 0 }: RevealProps) 
   useEffect(() => {
     const node = ref.current
     if (!node) return
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true)
-      return
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -46,8 +42,10 @@ export default function Reveal({ children, className, delay = 0 }: RevealProps) 
     <div
       ref={ref}
       className={cn(
-        "transition-[opacity,transform] duration-700 ease-out",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+        "transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
+        // Reduced motion: content is always visible and static, no JS branch needed
+        "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none",
         className,
       )}
       style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
