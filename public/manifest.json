@@ -4,8 +4,8 @@
   "description": "AI Agents die repetitieve taken automatiseren voor MKB bedrijven",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8f8fa",
-  "theme_color": "#4f46e5",
+  "background_color": "#f8f4ec",
+  "theme_color": "#1a3a63",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

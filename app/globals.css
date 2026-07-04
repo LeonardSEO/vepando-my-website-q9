@@ -3,21 +3,40 @@
 @tailwind utilities;
 
 /* ============================================================
-   DESIGN TOKENS
+   DESIGN TOKENS — Classical-tech operations palette
+   Deep ink blue as the working colour, warm cream/graphite for
+   editorial trust, gold + iris reserved as small, deliberate accents.
+   All HSL values are unitless triplets so Tailwind's hsl(var(--x))
+   and opacity modifiers (bg-primary/90 etc.) resolve correctly.
    ============================================================ */
 :root {
-  --background: #f8f8fa;
-  --background-rgb: 248, 248, 250;
-  --foreground: #1a1a1f;
-  --card: #ffffff;
-  --card-rgb: 255, 255, 255;
-  --card-foreground: #1a1a1f;
-  --muted-foreground: #5b6170;
-  --primary: #4f46e5;
-  --primary-rgb: 79, 70, 229;
-  --primary-foreground: #ffffff;
-  --border: #e5e7eb;
-  --accent: #f1f5f9;
+  --radius: 0.625rem;
+  --background: 40 30% 96%;
+  --foreground: 220 20% 14%;
+  --card: 40 33% 98%;
+  --card-rgb: 253, 251, 246;
+  --card-foreground: 220 20% 14%;
+  --muted-foreground: 220 10% 40%;
+  --primary: 215 55% 24%;
+  --primary-rgb: 26, 58, 99;
+  --primary-foreground: 40 30% 97%;
+  --secondary: 210 20% 92%;
+  --secondary-foreground: 220 20% 14%;
+  --destructive: 6 60% 45%;
+  --destructive-foreground: 40 30% 97%;
+  --popover: 40 33% 98%;
+  --popover-foreground: 220 20% 14%;
+  --border: 35 20% 85%;
+  --input: 35 20% 85%;
+  --ring: 215 55% 24%;
+  --accent: 210 25% 93%;
+  --accent-foreground: 220 20% 14%;
+
+  /* Restrained accents: gold for premium/audit moments, iris for AI-only touches */
+  --gold: 36 62% 34%;
+  --gold-rgb: 140, 97, 33;
+  --iris: 255 30% 45%;
+  --iris-rgb: 82, 80, 127;
 
   /* Glass system */
   --glass-bg: rgba(255, 255, 255, 0.55);
@@ -33,34 +52,53 @@
     0 14px 44px rgba(15, 15, 30, 0.14);
 
   /* Card glass (lighter treatment for content surfaces) */
-  --card-glass-bg: rgba(255, 255, 255, 0.6);
-  --card-glass-border: rgba(255, 255, 255, 0.8);
+  --card-glass-bg: rgba(253, 251, 246, 0.88);
+  --card-glass-border: rgba(220, 213, 200, 0.9);
 
-  /* Liquid glass (navbar) */
-  --lg-tint: rgba(255, 255, 255, 0.18);
-  --lg-rim-border: rgba(255, 255, 255, 0.55);
-  --lg-drop-alpha: 0.12;
-  --lg-specular: rgba(255, 255, 255, 0.95);
-  --lg-specular-side: rgba(255, 255, 255, 0.45);
-  --lg-bottom-edge: rgba(0, 0, 0, 0.08);
-  --lg-rim-brightness: 1.12;
-  --lg-sheen: rgba(255, 255, 255, 0.5);
+  /* Editorial navbar surface — a quiet cream panel, not a glossy Apple
+     "liquid glass" pill. Kept on the same mechanism (blur + SVG lens) but
+     dialled down: warm opaque tint, thin border, soft shadow, minimal sheen. */
+  --lg-tint: rgba(253, 251, 246, 0.82);
+  --lg-rim-border: rgba(224, 216, 200, 0.9);
+  --lg-drop-alpha: 0.06;
+  --lg-specular: rgba(255, 255, 255, 0.25);
+  --lg-specular-side: rgba(255, 255, 255, 0.12);
+  --lg-bottom-edge: rgba(0, 0, 0, 0.04);
+  --lg-rim-brightness: 1;
+  --lg-sheen: rgba(255, 255, 255, 0.15);
 }
 
+/* Vepando is light-first: this only fires when no theme has been set yet
+   (e.g. before the inline bootstrap script runs) and is otherwise
+   overridden by the explicit [data-theme="light"] block below it. Kept as
+   scaffolding for a possible future manual toggle, not an active brand mode. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f0f11;
-    --background-rgb: 15, 15, 17;
-    --foreground: #f4f4f6;
-    --card: #18181b;
-    --card-rgb: 24, 24, 27;
-    --card-foreground: #f4f4f6;
-    --muted-foreground: #a7a9b3;
-    --primary: #6366f1;
-    --primary-rgb: 99, 102, 241;
-    --primary-foreground: #ffffff;
-    --border: #27272a;
-    --accent: #27272a;
+  :root:not([data-theme="light"]) {
+    --background: 222 35% 8%;
+    --foreground: 40 22% 92%;
+    --card: 222 28% 12%;
+    --card-rgb: 17, 21, 31;
+    --card-foreground: 40 22% 92%;
+    --muted-foreground: 220 12% 65%;
+    --primary: 212 58% 42%;
+    --primary-rgb: 43, 105, 168;
+    --primary-foreground: 40 25% 96%;
+    --secondary: 222 22% 18%;
+    --secondary-foreground: 40 22% 92%;
+    --destructive: 6 55% 45%;
+    --destructive-foreground: 40 25% 96%;
+    --popover: 222 28% 12%;
+    --popover-foreground: 40 22% 92%;
+    --border: 222 20% 22%;
+    --input: 222 20% 22%;
+    --ring: 212 58% 50%;
+    --accent: 222 24% 16%;
+    --accent-foreground: 40 22% 92%;
+
+    --gold: 38 55% 62%;
+    --gold-rgb: 217, 167, 92;
+    --iris: 255 40% 68%;
+    --iris-rgb: 156, 151, 214;
 
     --glass-bg: rgba(24, 24, 30, 0.5);
     --glass-bg-strong: rgba(24, 24, 30, 0.7);
@@ -74,8 +112,8 @@
       0 2px 4px rgba(0, 0, 0, 0.35),
       0 14px 44px rgba(0, 0, 0, 0.55);
 
-    --card-glass-bg: rgba(255, 255, 255, 0.05);
-    --card-glass-border: rgba(255, 255, 255, 0.1);
+    --card-glass-bg: rgba(17, 21, 31, 0.82);
+    --card-glass-border: rgba(43, 49, 64, 0.9);
 
     --lg-tint: rgba(20, 20, 26, 0.32);
     --lg-rim-border: rgba(255, 255, 255, 0.16);
@@ -89,18 +127,31 @@
 }
 
 [data-theme="light"] {
-  --background: #f8f8fa;
-  --background-rgb: 248, 248, 250;
-  --foreground: #1a1a1f;
-  --card: #ffffff;
-  --card-rgb: 255, 255, 255;
-  --card-foreground: #1a1a1f;
-  --muted-foreground: #5b6170;
-  --primary: #4f46e5;
-  --primary-rgb: 79, 70, 229;
-  --primary-foreground: #ffffff;
-  --border: #e5e7eb;
-  --accent: #f1f5f9;
+  --background: 40 30% 96%;
+  --foreground: 220 20% 14%;
+  --card: 40 33% 98%;
+  --card-rgb: 253, 251, 246;
+  --card-foreground: 220 20% 14%;
+  --muted-foreground: 220 10% 40%;
+  --primary: 215 55% 24%;
+  --primary-rgb: 26, 58, 99;
+  --primary-foreground: 40 30% 97%;
+  --secondary: 210 20% 92%;
+  --secondary-foreground: 220 20% 14%;
+  --destructive: 6 60% 45%;
+  --destructive-foreground: 40 30% 97%;
+  --popover: 40 33% 98%;
+  --popover-foreground: 220 20% 14%;
+  --border: 35 20% 85%;
+  --input: 35 20% 85%;
+  --ring: 215 55% 24%;
+  --accent: 210 25% 93%;
+  --accent-foreground: 220 20% 14%;
+
+  --gold: 36 62% 34%;
+  --gold-rgb: 140, 97, 33;
+  --iris: 255 30% 45%;
+  --iris-rgb: 82, 80, 127;
 
   --glass-bg: rgba(255, 255, 255, 0.55);
   --glass-bg-strong: rgba(255, 255, 255, 0.72);
@@ -114,32 +165,45 @@
     0 2px 4px rgba(15, 15, 30, 0.05),
     0 14px 44px rgba(15, 15, 30, 0.14);
 
-  --card-glass-bg: rgba(255, 255, 255, 0.6);
-  --card-glass-border: rgba(255, 255, 255, 0.8);
+  --card-glass-bg: rgba(253, 251, 246, 0.88);
+  --card-glass-border: rgba(220, 213, 200, 0.9);
 
-  --lg-tint: rgba(255, 255, 255, 0.18);
-  --lg-rim-border: rgba(255, 255, 255, 0.55);
-  --lg-drop-alpha: 0.12;
-  --lg-specular: rgba(255, 255, 255, 0.95);
-  --lg-specular-side: rgba(255, 255, 255, 0.45);
-  --lg-bottom-edge: rgba(0, 0, 0, 0.08);
-  --lg-rim-brightness: 1.12;
-  --lg-sheen: rgba(255, 255, 255, 0.5);
+  --lg-tint: rgba(253, 251, 246, 0.82);
+  --lg-rim-border: rgba(224, 216, 200, 0.9);
+  --lg-drop-alpha: 0.06;
+  --lg-specular: rgba(255, 255, 255, 0.25);
+  --lg-specular-side: rgba(255, 255, 255, 0.12);
+  --lg-bottom-edge: rgba(0, 0, 0, 0.04);
+  --lg-rim-brightness: 1;
+  --lg-sheen: rgba(255, 255, 255, 0.15);
 }
 
 [data-theme="dark"] {
-  --background: #0f0f11;
-  --background-rgb: 15, 15, 17;
-  --foreground: #f4f4f6;
-  --card: #18181b;
-  --card-rgb: 24, 24, 27;
-  --card-foreground: #f4f4f6;
-  --muted-foreground: #a7a9b3;
-  --primary: #6366f1;
-  --primary-rgb: 99, 102, 241;
-  --primary-foreground: #ffffff;
-  --border: #27272a;
-  --accent: #27272a;
+  --background: 222 35% 8%;
+  --foreground: 40 22% 92%;
+  --card: 222 28% 12%;
+  --card-rgb: 17, 21, 31;
+  --card-foreground: 40 22% 92%;
+  --muted-foreground: 220 12% 65%;
+  --primary: 212 58% 42%;
+  --primary-rgb: 43, 105, 168;
+  --primary-foreground: 40 25% 96%;
+  --secondary: 222 22% 18%;
+  --secondary-foreground: 40 22% 92%;
+  --destructive: 6 55% 45%;
+  --destructive-foreground: 40 25% 96%;
+  --popover: 222 28% 12%;
+  --popover-foreground: 40 22% 92%;
+  --border: 222 20% 22%;
+  --input: 222 20% 22%;
+  --ring: 212 58% 50%;
+  --accent: 222 24% 16%;
+  --accent-foreground: 40 22% 92%;
+
+  --gold: 38 55% 62%;
+  --gold-rgb: 217, 167, 92;
+  --iris: 255 40% 68%;
+  --iris-rgb: 156, 151, 214;
 
   --glass-bg: rgba(24, 24, 30, 0.5);
   --glass-bg-strong: rgba(24, 24, 30, 0.7);
@@ -153,8 +217,8 @@
     0 2px 4px rgba(0, 0, 0, 0.35),
     0 14px 44px rgba(0, 0, 0, 0.55);
 
-  --card-glass-bg: rgba(255, 255, 255, 0.05);
-  --card-glass-border: rgba(255, 255, 255, 0.1);
+  --card-glass-bg: rgba(17, 21, 31, 0.82);
+  --card-glass-border: rgba(43, 49, 64, 0.9);
 
   --lg-tint: rgba(20, 20, 26, 0.32);
   --lg-rim-border: rgba(255, 255, 255, 0.16);
@@ -172,8 +236,8 @@
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
@@ -196,38 +260,6 @@ html {
   }
 }
 
-/* Theme color utilities (kept for non-Tailwind-token usage) */
-.bg-background {
-  background-color: var(--background);
-}
-.text-foreground {
-  color: var(--foreground);
-}
-.bg-card {
-  background-color: var(--card);
-}
-.text-card-foreground {
-  color: var(--card-foreground);
-}
-.text-muted-foreground {
-  color: var(--muted-foreground);
-}
-.bg-primary {
-  background-color: var(--primary);
-}
-.text-primary {
-  color: var(--primary);
-}
-.text-primary-foreground {
-  color: var(--primary-foreground);
-}
-.border-border {
-  border-color: var(--border);
-}
-.bg-accent {
-  background-color: var(--accent);
-}
-
 /* ============================================================
    LIQUID GLASS — navbar pill (Apple iOS 26 style)
 
@@ -245,13 +277,13 @@ html {
   background: var(--lg-tint);
   /* Fallback (Safari/Firefox have no url() backdrop refraction):
      a light, clean glass blur so the pill still reads as glass */
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
-  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
   /* Real Liquid Glass: a light frost combined with the SVG lens, which
      magnifies and bends the backdrop inward at the curved rim — like Apple's
      material. This declaration overrides the blur above where supported. */
-  -webkit-backdrop-filter: blur(5px) url(#liquid-lens) saturate(180%) brightness(var(--lg-rim-brightness));
-  backdrop-filter: blur(5px) url(#liquid-lens) saturate(180%) brightness(var(--lg-rim-brightness));
+  -webkit-backdrop-filter: blur(5px) url(#liquid-lens) saturate(120%) brightness(var(--lg-rim-brightness));
+  backdrop-filter: blur(5px) url(#liquid-lens) saturate(120%) brightness(var(--lg-rim-brightness));
   border: 1px solid var(--lg-rim-border);
   box-shadow:
     /* ambient drop shadow under the slab */
@@ -288,14 +320,16 @@ html {
 }
 
 /* ============================================================
-   GLASS CARDS — content surfaces
+   CONTENT CARDS — a quiet, mostly-opaque surface, not a glossy
+   glass panel. Keeps the name (widely used across components)
+   but reads as editorial paper rather than SaaS "liquid glass".
    ============================================================ */
 .glass-card {
   background: var(--card-glass-bg);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+  backdrop-filter: blur(6px) saturate(110%);
   border: 1px solid var(--card-glass-border);
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   box-shadow: var(--glass-shadow);
   transition:
     box-shadow 0.25s ease,
@@ -308,7 +342,7 @@ html {
 
 @supports not (backdrop-filter: blur(1px)) {
   .glass-card {
-    background: var(--card);
+    background: hsl(var(--card));
   }
 }
 
@@ -319,70 +353,73 @@ html {
 }
 
 /* ============================================================
-   BACKGROUND ORBS
+   BLUEPRINT GRID — quiet architectural backdrop, replaces the
+   old purple ambient orbs. A faint grid + one soft ink glow.
    ============================================================ */
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translate3d(33%, -25%, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(35%, -23%, 0) rotate(2deg);
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(var(--primary-rgb), 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--primary-rgb), 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+[data-theme="dark"] .blueprint-grid {
+  background-image:
+    linear-gradient(rgba(var(--primary-rgb), 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--primary-rgb), 0.14) 1px, transparent 1px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .blueprint-grid {
+    background-image:
+      linear-gradient(rgba(var(--primary-rgb), 0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--primary-rgb), 0.14) 1px, transparent 1px);
   }
 }
 
-@keyframes float-reverse {
-  0%,
-  100% {
-    transform: translate3d(-33%, 25%, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(-35%, 23%, 0) rotate(-2deg);
-  }
-}
-
-.animate-float-slow {
-  animation: float-slow 24s ease-in-out infinite;
-}
-.animate-float-reverse {
-  animation: float-reverse 28s ease-in-out infinite;
+/* Same grid, but unmasked and evenly visible — for small contained boxes
+   (illustration placeholders) rather than a full-page fading backdrop. */
+.blueprint-tile {
+  background-image:
+    linear-gradient(rgba(var(--primary-rgb), 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--primary-rgb), 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* ============================================================
-   REVIEWS MARQUEE — CSS only, server-rendered
+   AGENT CONSOLE — a one-time "booting up" line-in on load, plus a
+   continuously blinking caret, so the panel reads as live activity
+   rather than a static screenshot. Kept subtle and looping only
+   where it costs nothing (opacity/transform), not full replays.
    ============================================================ */
-@keyframes marquee-left {
+
+/* Deliberately NOT --font-mono (Geist Mono reads too clean/designed).
+   This is the actual system terminal stack — SF Mono on macOS, the same
+   font real terminal apps use — so the console reads as a real tool. */
+.terminal-font {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+}
+
+@keyframes console-line-in {
   from {
-    transform: translateX(0);
+    opacity: 0;
+    transform: translateY(4px);
   }
   to {
-    transform: translateX(-50%);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.reviews-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee-left 40s linear infinite;
-}
-
-.reviews-marquee:hover,
-.reviews-marquee:focus-within {
-  animation-play-state: paused;
+.console-line {
+  animation: console-line-in 0.4s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reviews-marquee {
-    animation: none;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .reviews-marquee > [aria-hidden="true"] {
-    display: none;
-  }
-  .animate-float-slow,
-  .animate-float-reverse {
+  .console-line {
     animation: none;
   }
 }
@@ -407,9 +444,9 @@ html {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--accent);
+  background: hsl(var(--accent));
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: hsl(var(--primary));
   border-radius: 4px;
 }

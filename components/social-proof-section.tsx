@@ -19,9 +19,9 @@ const companies = [
 ]
 
 const stats = [
-  { dot: "bg-green-400", label: "30+ AI Agents live" },
-  { dot: "bg-blue-400", label: "Live binnen 30 dagen" },
-  { dot: "bg-purple-400", label: "100% Nederlandse MKB" },
+  { dot: "bg-emerald-500", label: "30+ AI Agents live" },
+  { dot: "bg-primary", label: "Live binnen 30 dagen" },
+  { dot: "bg-[hsl(var(--gold))]", label: "100% Nederlandse MKB" },
 ]
 
 export default function SocialProofSection() {

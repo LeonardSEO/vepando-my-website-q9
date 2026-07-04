@@ -1,10 +1,46 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { AGENT_LINK_HEADER, HOME_MARKDOWN, MARKDOWN_TOKEN_COUNT } from "./lib/agent-discovery"
+
+function acceptsMarkdown(request: NextRequest) {
+  const accept = request.headers.get("accept")?.toLowerCase() ?? ""
+
+  return request.nextUrl.pathname === "/" && accept.split(",").some((value) => value.trim().startsWith("text/markdown"))
+}
+
+function addVary(response: NextResponse, headerName: string) {
+  const vary = response.headers.get("Vary")
+
+  if (!vary) {
+    response.headers.set("Vary", headerName)
+    return
+  }
+
+  const values = vary.split(",").map((value) => value.trim().toLowerCase())
+
+  if (!values.includes(headerName.toLowerCase())) {
+    response.headers.set("Vary", `${vary}, ${headerName}`)
+  }
+}
 
 export function proxy(request: NextRequest) {
-  const response = NextResponse.next()
+  const isHomepage = request.nextUrl.pathname === "/"
+  const response = acceptsMarkdown(request)
+    ? new NextResponse(HOME_MARKDOWN, {
+        headers: {
+          "Cache-Control": "public, max-age=300",
+          "Content-Type": "text/markdown; charset=utf-8",
+          "x-markdown-tokens": MARKDOWN_TOKEN_COUNT.toString(),
+        },
+      })
+    : NextResponse.next()
   const isDev = process.env.NODE_ENV !== "production"
   const isHttps = request.headers.get("x-forwarded-proto") === "https" || request.nextUrl.protocol === "https:"
+
+  if (isHomepage) {
+    response.headers.set("Link", AGENT_LINK_HEADER)
+    addVary(response, "Accept")
+  }
 
   response.headers.set("X-Frame-Options", "SAMEORIGIN") // SAMEORIGIN (not DENY) for the Cal.com embed
   response.headers.set("X-Content-Type-Options", "nosniff")

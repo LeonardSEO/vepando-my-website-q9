@@ -1,9 +1,19 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
+import { Source_Serif_4 } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
+import WebMcpProvider from "@/components/agent/webmcp-provider"
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+  weight: ["500", "600", "700"],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vepando.com"),
@@ -23,7 +33,7 @@ export const metadata: Metadata = {
       "Huur een AI-collega die 24/7 voor je werkt. Binnen 30 dagen live, voor een vaste prijs die je vooraf kent.",
     images: [
       {
-        url: "/images/vepando-logo-main.png",
+        url: "/images/vepando-og-image.png",
         width: 1200,
         height: 630,
         alt: "VEPANDO - AI Agents voor MKB",
@@ -35,7 +45,7 @@ export const metadata: Metadata = {
     title: "VEPANDO - AI Agents voor MKB",
     description:
       "Huur een AI-collega die 24/7 voor je werkt. Binnen 30 dagen live, voor een vaste prijs die je vooraf kent.",
-    images: ["/images/vepando-logo-main.png"],
+    images: ["/images/vepando-og-image.png"],
   },
   robots: {
     index: true,
@@ -57,19 +67,27 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 }
 
+export const viewport: Viewport = {
+  themeColor: "#1a3a63",
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="nl" suppressHydrationWarning className={GeistSans.variable}>
+    <html
+      lang="nl"
+      suppressHydrationWarning
+      className={`${GeistSans.variable} ${GeistMono.variable} ${sourceSerif.variable}`}
+    >
       <head>
         {/* Theme detection runs before paint to prevent a flash of wrong theme */}
         <Script src="/js/theme-bootstrap.js" strategy="beforeInteractive" />
       </head>
       <body
-        className={`${GeistSans.className} bg-[radial-gradient(1200px_800px_at_50%_-200px,rgba(79,70,229,0.12),transparent)]`}
+        className={`${GeistSans.className} bg-[radial-gradient(1200px_800px_at_50%_-200px,rgba(26,58,99,0.10),transparent)]`}
       >
         {/* Liquid Glass lens — referenced by .liquid-glass-navbar's backdrop-filter.
             The SDF displacement map (public/images/liquid-lens-map.png) is neutral
@@ -104,6 +122,7 @@ export default function RootLayout({
             <feBlend in="dRG" in2="dB" mode="screen" />
           </filter>
         </svg>
+        <WebMcpProvider />
         {children}
         <Analytics />
       </body>

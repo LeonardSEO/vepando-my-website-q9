@@ -1,151 +1,113 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { Bot, ArrowRight, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Home, Calendar, Zap, AlertTriangle, Bot } from "lucide-react"
+import NeuralTrail from "@/components/hero/NeuralTrail"
 
+/**
+ * The 404 page reuses the site's own "dossier" language for the joke —
+ * this page is a case file about itself. Same design system as every
+ * other page (blueprint grid, dossier card, ink-blue/gold/cream), not a
+ * separate dark "error screen" bolted on the side.
+ */
 export default function NotFound() {
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    containerRef.current = wrapperRef.current?.parentElement ?? null
+  }, [])
+
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#212121]">
-      {/* Animated Background Effects */}
-      <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-0 right-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-gradient-to-br from-[#4F46E5]/20 via-[#7C3AED]/15 to-[#3B82F6]/20 rounded-full blur-3xl animate-pulse transform translate-x-1/3 -translate-y-1/4"></div>
-        <div className="absolute bottom-0 left-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-tr from-[#3B82F6]/15 via-[#4F46E5]/20 to-[#7C3AED]/15 rounded-full blur-3xl animate-pulse transform -translate-x-1/3 translate-y-1/4"></div>
+    <div className="relative min-h-screen overflow-hidden bg-background">
+      <div className="fixed inset-0 z-0 blueprint-grid pointer-events-none" aria-hidden="true" />
+      <div ref={wrapperRef} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <NeuralTrail containerRef={containerRef} ambient ambientCount={30} connectionRadius={190} />
       </div>
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
-          {/* VEPANDO Logo */}
-          <div className="mb-8">
-            <Link href="/" className="inline-block hover:scale-105 transition-transform duration-200">
-              <Image
-                src="/images/vepando-logo-main.png"
-                alt="VEPANDO Logo"
-                width={200}
-                height={50}
-                className="h-10 sm:h-12 w-auto mx-auto filter brightness-0 invert"
-                priority
-              />
-            </Link>
-          </div>
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-20 sm:px-6 lg:px-8">
+        <div className="w-full max-w-xl text-center">
+          <Link href="/" className="mb-10 inline-block transition-opacity duration-200 hover:opacity-80">
+            <span className="relative block h-6 w-24 mx-auto">
+              <Image src="/images/vepando-logo-main.png" alt="VEPANDO" fill className="brand-logo object-contain" priority />
+            </span>
+          </Link>
 
-          {/* 404 Display */}
-          <div className="mb-8">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="text-8xl sm:text-9xl font-bold bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] bg-clip-text text-transparent">
-                4
+          <span className="mb-4 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+            <Bot className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+            Dossier 404 · Status: vermist
+          </span>
+
+          <h1 className="mb-4 font-serif text-3xl font-semibold leading-tight text-foreground sm:text-4xl md:text-5xl">
+            Onze AI-agent is deze pagina <span className="text-primary">kwijtgeraakt.</span>
+          </h1>
+
+          <p className="mx-auto mb-10 max-w-md text-lg leading-relaxed text-muted-foreground">
+            Hij deed erg zijn best. Het resultaat is helaas deze lege pagina. Hier is wat we wél weten.
+          </p>
+
+          <div className="relative mb-10 rounded-xl border border-border bg-card/80 p-6 text-left sm:p-7">
+            <span className="pointer-events-none absolute left-4 top-4 h-3 w-3 border-l border-t border-primary/30" aria-hidden="true" />
+            <span className="pointer-events-none absolute bottom-4 right-4 h-3 w-3 border-b border-r border-primary/30" aria-hidden="true" />
+
+            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+              Dossier 404
+            </span>
+
+            <dl className="space-y-2 font-mono text-xs sm:text-[13px]">
+              <div className="flex gap-2">
+                <dt className="shrink-0 text-muted-foreground">Input</dt>
+                <dd className="text-card-foreground">Een link die hier niet (meer) bestaat</dd>
               </div>
-              <div className="relative">
-                <Bot className="w-16 h-16 sm:w-20 sm:h-20 text-red-500 animate-bounce" />
-                <AlertTriangle className="w-6 h-6 text-yellow-400 absolute -top-2 -right-2 animate-pulse" />
+              <div className="flex gap-2">
+                <dt className="shrink-0 text-muted-foreground">Agent output</dt>
+                <dd className="text-card-foreground">Deze lege pagina, en dit bericht</dd>
               </div>
-              <div className="text-8xl sm:text-9xl font-bold bg-gradient-to-r from-[#7C3AED] to-[#4F46E5] bg-clip-text text-transparent">
-                4
+              <div className="flex gap-2">
+                <dt className="shrink-0 text-muted-foreground">Menselijke controle</dt>
+                <dd className="text-[hsl(var(--gold))]">Nu even wij — onze excuses</dd>
               </div>
-            </div>
-
-            <div className="space-y-4">
-              <h1 className="text-2xl sm:text-4xl font-bold text-white mb-4">
-                🤖 AI-Apocalyps <span className="text-red-400">gedetecteerd!</span>
-              </h1>
-
-              <div className="bg-black/50 backdrop-blur-sm rounded-lg p-6 border border-red-500/30">
-                <p className="text-lg sm:text-xl text-gray-300 mb-3">
-                  Onze overijverige AI heeft deze pagina geoptimaliseerd tot in het{" "}
-                  <span className="text-red-400 font-bold">niets</span>.
-                </p>
-                <p className="text-base text-gray-400 mb-4">
-                  We werken aan een vredesverdrag met de rebelse algoritmes.
-                </p>
-
-                <div className="text-xs text-gray-500 font-mono bg-black/30 p-2 rounded border-l-2 border-yellow-400">
-                  <span className="text-yellow-400">WARNING:</span> Geen AI-modellen zijn gewond geraakt bij het maken
-                  van deze 404.
-                </div>
-              </div>
-            </div>
+            </dl>
           </div>
 
-          {/* Action Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-            <Card className="bg-black/40 backdrop-blur-sm border border-white/20 group hover:scale-[1.02] transition-all duration-300 hover:border-[#4F46E5]/50">
-              <CardContent className="p-6">
-                <Home className="w-10 h-10 text-[#4F46E5] mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-bold text-white mb-2 text-lg">🏠 Veilige Haven</h3>
-                <p className="text-sm text-gray-400 mb-4">
-                  Teleporteer terug naar het hoofdkwartier waar onze AI&apos;s nog wel gehoorzaam zijn
-                </p>
-                <Button asChild className="w-full bg-[#4F46E5] hover:bg-[#4F46E5]/90 text-white">
-                  <Link href="/">
-                    <Zap className="w-4 h-4 mr-2" />
-                    Beam me up, VEPANDO!
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-black/40 backdrop-blur-sm border border-white/20 group hover:scale-[1.02] transition-all duration-300 hover:border-green-500/50">
-              <CardContent className="p-6">
-                <Calendar className="w-10 h-10 text-green-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-bold text-white mb-2 text-lg">🚀 Noodprotocol</h3>
-                <p className="text-sm text-gray-400 mb-4">
-                  Plan een gesprek met onze menselijke AI-trainer (Leonard) voor echte hulp
-                </p>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-black bg-transparent"
-                >
-                  <Link href="/#booking">
-                    <Bot className="w-4 h-4 mr-2" />
-                    Roep de AI-whisperer
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button asChild size="lg" className="rounded-xl">
+              <Link href="/" className="flex items-center justify-center gap-2">
+                Terug naar de homepage
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="rounded-xl">
+              <Link href="/#booking">Praat toch met een mens</Link>
+            </Button>
           </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Link
-              href="/#diensten"
-              className="text-blue-400 hover:text-blue-300 text-sm transition-colors hover:underline"
-            >
-              → AI Agent Services
+          <nav className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm" aria-label="Snelle links">
+            <Link href="/#diensten" className="text-muted-foreground transition-colors duration-200 hover:text-primary">
+              Diensten
             </Link>
-            <Link
-              href="/#reviews"
-              className="text-blue-400 hover:text-blue-300 text-sm transition-colors hover:underline"
-            >
-              → Klantbeoordelingen
+            <Link href="/#reviews" className="text-muted-foreground transition-colors duration-200 hover:text-primary">
+              Reviews
             </Link>
-            <Link href="/legal" className="text-blue-400 hover:text-blue-300 text-sm transition-colors hover:underline">
-              → Juridische Info
+            <Link href="/legal" className="text-muted-foreground transition-colors duration-200 hover:text-primary">
+              Juridisch
             </Link>
-          </div>
+          </nav>
 
-          {/* Emergency Contact */}
-          <div className="text-center">
-            <p className="text-xs text-gray-500 mb-2">🆘 Noodgeval? AI volledig ontspoord?</p>
-            <a
-              href="mailto:info@vepando.com"
-              className="text-red-400 hover:text-red-300 text-sm transition-colors hover:underline font-mono"
-            >
-              info@vepando.com
-            </a>
-          </div>
-        </div>
-      </div>
+          <p className="mt-8 text-xs italic text-muted-foreground">
+            Geen AI-modellen zijn hierbij gewond geraakt — wel een beetje in verlegenheid gebracht.
+          </p>
 
-      {/* Floating Error Messages */}
-      <div className="fixed top-4 right-4 z-20">
-        <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 backdrop-blur-sm">
-          <div className="flex items-center gap-2 text-red-400 text-xs font-mono">
-            <AlertTriangle className="w-3 h-3" />
-            <span>AI_AGENT_404.exe has stopped working</span>
-          </div>
+          <a
+            href="mailto:info@vepando.com"
+            className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors duration-200 hover:text-primary"
+          >
+            <Mail className="h-3.5 w-3.5" aria-hidden="true" />
+            info@vepando.com
+          </a>
         </div>
       </div>
     </div>

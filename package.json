@@ -74,15 +74,5 @@
   },
   "overrides": {
     "postcss": "$postcss"
-  },
-  "pnpm": {
-    "overrides": {
-      "lodash": "4.17.23",
-      "sucrase": "3.35.1"
-    },
-    "onlyBuiltDependencies": [
-      "sharp",
-      "unrs-resolver"
-    ]
   }
 }

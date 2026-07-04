@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import type { RefObject } from "react"
 
-type Node = {
+type TrailNode = {
+  kind: "trail"
   id: number
   x: number
   y: number
@@ -12,6 +13,26 @@ type Node = {
   createdAt: number
   ttl: number
   size: number
+}
+
+type AmbientNode = {
+  kind: "ambient"
+  id: number
+  xFrac: number
+  yFrac: number
+  phase: number
+  freq: number
+  amplitude: number
+  size: number
+  ix: number
+  iy: number
+}
+
+type RenderNode = {
+  x: number
+  y: number
+  size: number
+  alpha: number
 }
 
 type PointerState = {
@@ -23,18 +44,31 @@ type PointerState = {
 
 type NeuralTrailProps = {
   containerRef: RefObject<HTMLElement | null>
+  /**
+   * When true, a fixed set of nodes drifts continuously (a gentle sine
+   * "dance") even with no pointer activity, and reacts to real mouse
+   * movement with a directional push — used for pages that want a
+   * living backdrop rather than a pure cursor-trail effect.
+   */
+  ambient?: boolean
+  ambientCount?: number
+  connectionRadius?: number
 }
 
-const BRAND_HEX = "#4F46E5"
-const BRAND_RGB = "79, 70, 229"
-const MAX_NODES = 80
+const BRAND_HEX = "#8C6121"
+const BRAND_RGB = "140, 97, 33"
+const MAX_TRAIL_NODES = 80
 const MOUSE_EMIT_INTERVAL_MS = 24
 const TOUCH_EMIT_INTERVAL_MS = 40
 const NODE_TTL_MS = 2400
-const CONNECTION_RADIUS = 120
 const JITTER_SPEED = 6
 const NODE_SIZE_MIN = 1.5
 const NODE_SIZE_MAX = 2.5
+const AMBIENT_SIZE_MIN = 1.6
+const AMBIENT_SIZE_MAX = 3
+const PUSH_RADIUS = 170
+const PUSH_STRENGTH = 0.9
+const MAX_IMPULSE = 46
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
@@ -44,9 +78,15 @@ function randomBetween(min: number, max: number) {
   return min + Math.random() * (max - min)
 }
 
-export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
+export default function NeuralTrail({
+  containerRef,
+  ambient = false,
+  ambientCount = 28,
+  connectionRadius = 120,
+}: NeuralTrailProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const nodesRef = useRef<Node[]>([])
+  const trailNodesRef = useRef<TrailNode[]>([])
+  const ambientNodesRef = useRef<AmbientNode[]>([])
   const pointerRef = useRef<PointerState>({
     active: false,
     x: 0,
@@ -78,7 +118,8 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
 
   useEffect(() => {
     if (!motionAllowed) {
-      nodesRef.current = []
+      trailNodesRef.current = []
+      ambientNodesRef.current = []
       return
     }
 
@@ -93,6 +134,21 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
 
     if (!context) {
       return
+    }
+
+    if (ambient) {
+      ambientNodesRef.current = Array.from({ length: ambientCount }, (_, index) => ({
+        kind: "ambient",
+        id: index,
+        xFrac: randomBetween(0.04, 0.96),
+        yFrac: randomBetween(0.06, 0.94),
+        phase: randomBetween(0, Math.PI * 2),
+        freq: randomBetween(0.25, 0.6),
+        amplitude: randomBetween(14, 34),
+        size: randomBetween(AMBIENT_SIZE_MIN, AMBIENT_SIZE_MAX),
+        ix: 0,
+        iy: 0,
+      }))
     }
 
     const resizeCanvas = () => {
@@ -110,7 +166,7 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
       context.clearRect(0, 0, width, height)
     }
 
-    const emitNode = (timestamp: number, mode: PointerState["mode"]) => {
+    const emitTrailNode = (timestamp: number, mode: PointerState["mode"]) => {
       const emitInterval = mode === "touch" ? TOUCH_EMIT_INTERVAL_MS : MOUSE_EMIT_INTERVAL_MS
 
       if (timestamp - lastEmitAtRef.current < emitInterval) {
@@ -119,7 +175,8 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
 
       const { x, y } = pointerRef.current
 
-      nodesRef.current.push({
+      trailNodesRef.current.push({
+        kind: "trail",
         id: nextNodeIdRef.current++,
         x,
         y,
@@ -130,11 +187,41 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
         size: randomBetween(NODE_SIZE_MIN, NODE_SIZE_MAX),
       })
 
-      if (nodesRef.current.length > MAX_NODES) {
-        nodesRef.current.splice(0, nodesRef.current.length - MAX_NODES)
+      if (trailNodesRef.current.length > MAX_TRAIL_NODES) {
+        trailNodesRef.current.splice(0, trailNodesRef.current.length - MAX_TRAIL_NODES)
       }
 
       lastEmitAtRef.current = timestamp
+    }
+
+    // Nudges nearby ambient anchors along the pointer's movement direction —
+    // the "reacts to movement" ripple. Mouse-only (needs movementX/Y).
+    const pushAmbientNodes = (clientX: number, clientY: number, movementX: number, movementY: number) => {
+      if (!ambient || (movementX === 0 && movementY === 0)) {
+        return
+      }
+
+      const { width, height } = sizeRef.current
+      const rect = container.getBoundingClientRect()
+      const localX = clamp(clientX - rect.left, 0, width)
+      const localY = clamp(clientY - rect.top, 0, height)
+      const speed = clamp(Math.hypot(movementX, movementY), 0, 60)
+      const dirX = movementX / (speed || 1)
+      const dirY = movementY / (speed || 1)
+
+      for (const anchor of ambientNodesRef.current) {
+        const ax = anchor.xFrac * width
+        const ay = anchor.yFrac * height
+        const distance = Math.hypot(ax - localX, ay - localY)
+
+        if (distance > PUSH_RADIUS) {
+          continue
+        }
+
+        const factor = (1 - distance / PUSH_RADIUS) * speed * PUSH_STRENGTH
+        anchor.ix = clamp(anchor.ix + dirX * factor, -MAX_IMPULSE, MAX_IMPULSE)
+        anchor.iy = clamp(anchor.iy + dirY * factor, -MAX_IMPULSE, MAX_IMPULSE)
+      }
     }
 
     const ensureRunning = () => {
@@ -166,12 +253,13 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
         mode,
       }
 
-      emitNode(performance.now(), mode)
+      emitTrailNode(performance.now(), mode)
       ensureRunning()
     }
 
     const handleMouseMove = (event: MouseEvent) => {
       updatePointer(event.clientX, event.clientY, "mouse")
+      pushAmbientNodes(event.clientX, event.clientY, event.movementX, event.movementY)
     }
 
     const handleMouseLeave = () => {
@@ -214,9 +302,9 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
 
       context.clearRect(0, 0, width, height)
 
-      const activeNodes: Node[] = []
+      const activeTrailNodes: TrailNode[] = []
 
-      for (const node of nodesRef.current) {
+      for (const node of trailNodesRef.current) {
         const age = timestamp - node.createdAt
 
         if (age >= node.ttl) {
@@ -228,45 +316,65 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
         node.x = clamp(node.x + node.vx * deltaSeconds, 0, width)
         node.y = clamp(node.y + node.vy * deltaSeconds, 0, height)
 
-        activeNodes.push(node)
+        activeTrailNodes.push(node)
       }
 
-      nodesRef.current = activeNodes
+      trailNodesRef.current = activeTrailNodes
 
-      // Idle stop: no nodes left and no active pointer means nothing to draw,
-      // so release the animation frame loop until the next pointer event.
-      if (activeNodes.length === 0 && !pointerRef.current.active) {
+      // Idle stop only applies when there's nothing ambient to keep
+      // drawing — with ambient mode on, the loop just keeps dancing.
+      if (!ambient && activeTrailNodes.length === 0 && !pointerRef.current.active) {
         runningRef.current = false
         animationFrameRef.current = null
         return
       }
 
+      const renderNodes: RenderNode[] = []
+      const tSeconds = timestamp / 1000
+
+      for (const anchor of ambientNodesRef.current) {
+        const decay = Math.exp(-deltaSeconds * 3.2)
+        anchor.ix *= decay
+        anchor.iy *= decay
+
+        const baseX = anchor.xFrac * width
+        const baseY = anchor.yFrac * height + Math.sin(tSeconds * anchor.freq + anchor.phase) * anchor.amplitude
+        const x = clamp(baseX + anchor.ix, 0, width)
+        const y = clamp(baseY + anchor.iy, 0, height)
+        const shimmer = 0.4 + 0.18 * Math.sin(tSeconds * anchor.freq * 1.7 + anchor.phase)
+
+        renderNodes.push({ x, y, size: anchor.size, alpha: shimmer })
+      }
+
+      for (const node of activeTrailNodes) {
+        const life = 1 - (timestamp - node.createdAt) / node.ttl
+        renderNodes.push({ x: node.x, y: node.y, size: node.size, alpha: life * 0.9 })
+      }
+
       context.save()
       context.lineCap = "round"
 
-      for (let index = 0; index < activeNodes.length; index += 1) {
-        const source = activeNodes[index]
-        const sourceLife = 1 - (timestamp - source.createdAt) / source.ttl
+      for (let index = 0; index < renderNodes.length; index += 1) {
+        const source = renderNodes[index]
 
-        for (let compareIndex = index + 1; compareIndex < activeNodes.length; compareIndex += 1) {
-          const target = activeNodes[compareIndex]
+        for (let compareIndex = index + 1; compareIndex < renderNodes.length; compareIndex += 1) {
+          const target = renderNodes[compareIndex]
           const dx = source.x - target.x
           const dy = source.y - target.y
           const distance = Math.hypot(dx, dy)
 
-          if (distance > CONNECTION_RADIUS) {
+          if (distance > connectionRadius) {
             continue
           }
 
-          const targetLife = 1 - (timestamp - target.createdAt) / target.ttl
-          const distanceAlpha = 1 - distance / CONNECTION_RADIUS
-          const alpha = distanceAlpha * Math.min(sourceLife, targetLife) * 0.55
+          const distanceAlpha = 1 - distance / connectionRadius
+          const alpha = distanceAlpha * Math.min(source.alpha, target.alpha) * 0.55
 
           if (alpha <= 0.01) {
             continue
           }
 
-          const proximity = 1 - distance / CONNECTION_RADIUS
+          const proximity = 1 - distance / connectionRadius
 
           context.beginPath()
           context.strokeStyle = `rgba(${BRAND_RGB}, ${alpha})`
@@ -279,18 +387,15 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
 
       context.restore()
 
-      for (const node of activeNodes) {
-        const life = 1 - (timestamp - node.createdAt) / node.ttl
-        const nodeAlpha = life * 0.9
-
-        if (nodeAlpha <= 0.01) {
+      for (const node of renderNodes) {
+        if (node.alpha <= 0.01) {
           continue
         }
 
         context.beginPath()
         context.shadowBlur = 8
         context.shadowColor = BRAND_HEX
-        context.fillStyle = `rgba(${BRAND_RGB}, ${nodeAlpha})`
+        context.fillStyle = `rgba(${BRAND_RGB}, ${node.alpha})`
         context.arc(node.x, node.y, node.size, 0, Math.PI * 2)
         context.fill()
       }
@@ -305,7 +410,7 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
     const handleVisibilityChange = () => {
       if (document.hidden) {
         stopLoop()
-      } else if (nodesRef.current.length > 0 || pointerRef.current.active) {
+      } else if (ambient || trailNodesRef.current.length > 0 || pointerRef.current.active) {
         ensureRunning()
       }
     }
@@ -325,6 +430,10 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
     container.addEventListener("touchcancel", handleTouchEnd, passiveTouch)
     document.addEventListener("visibilitychange", handleVisibilityChange)
 
+    if (ambient) {
+      ensureRunning()
+    }
+
     return () => {
       stopLoop()
       document.removeEventListener("visibilitychange", handleVisibilityChange)
@@ -336,12 +445,13 @@ export default function NeuralTrail({ containerRef }: NeuralTrailProps) {
       container.removeEventListener("touchend", handleTouchEnd)
       container.removeEventListener("touchcancel", handleTouchEnd)
       context.clearRect(0, 0, sizeRef.current.width, sizeRef.current.height)
-      nodesRef.current = []
+      trailNodesRef.current = []
+      ambientNodesRef.current = []
       lastEmitAtRef.current = 0
       lastFrameTimeRef.current = 0
       pointerRef.current.active = false
     }
-  }, [containerRef, motionAllowed])
+  }, [containerRef, motionAllowed, ambient, ambientCount, connectionRadius])
 
   if (motionAllowed !== true) {
     return null

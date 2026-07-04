@@ -35,7 +35,7 @@ export default function LegalPage() {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Juridische Informatie</h1>
+          <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-foreground mb-4">Juridische Informatie</h1>
           <p className="text-lg text-muted-foreground">Privacy, cookies en voorwaarden op één plek</p>
           <p className="text-sm text-muted-foreground mt-2">Laatst bijgewerkt: 12 januari 2025</p>
         </div>
@@ -68,7 +68,7 @@ export default function LegalPage() {
         <section id="privacy" className="mb-16">
           <div className="flex items-center gap-3 mb-8">
             <Shield className="w-8 h-8 text-primary" />
-            <h2 className="text-3xl font-bold text-foreground">Privacybeleid</h2>
+            <h2 className="font-serif text-3xl font-semibold text-foreground">Privacybeleid</h2>
           </div>
 
           <Card className="glass-card mb-8">
@@ -140,7 +140,7 @@ export default function LegalPage() {
         <section id="cookies" className="mb-16">
           <div className="flex items-center gap-3 mb-8">
             <Cookie className="w-8 h-8 text-primary" />
-            <h2 className="text-3xl font-bold text-foreground">Cookiebeleid</h2>
+            <h2 className="font-serif text-3xl font-semibold text-foreground">Cookiebeleid</h2>
           </div>
 
           <Card className="glass-card mb-8">
@@ -196,7 +196,7 @@ export default function LegalPage() {
         <section id="voorwaarden" className="mb-16">
           <div className="flex items-center gap-3 mb-8">
             <FileText className="w-8 h-8 text-primary" />
-            <h2 className="text-3xl font-bold text-foreground">Algemene Voorwaarden</h2>
+            <h2 className="font-serif text-3xl font-semibold text-foreground">Algemene Voorwaarden</h2>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 mb-8">
