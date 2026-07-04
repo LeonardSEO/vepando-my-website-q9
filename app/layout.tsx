@@ -6,6 +6,7 @@ import { Source_Serif_4 } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import WebMcpProvider from "@/components/agent/webmcp-provider"
 
 const sourceSerif = Source_Serif_4({
@@ -125,6 +126,7 @@ export default function RootLayout({
         <WebMcpProvider />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
